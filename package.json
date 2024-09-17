@@ -12,6 +12,10 @@
     "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e'"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
+    "bootstrap": "^5.3.3",
     "pinia": "^2.1.7",
     "vue": "^3.4.29"
   },
