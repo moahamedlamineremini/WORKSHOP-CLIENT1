@@ -14,6 +14,7 @@ import Acceuil from './components/Acceuil.vue'
   <main>
    <Acceuil/>
   </main>
+  
   <footer>
     <Footer/>
   </footer>
