@@ -1,10 +1,9 @@
 <template>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     
-    <div class="header">
+    <div class="header -flex flex-column ">
       <nav class="navbar navbar-expand-lg navbar-dark">
         <img src="../assets/logo_metroid.webp" class="logo navbar-brand">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,10 +21,10 @@
         </div>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="list-unstyled d-flex">
-            <li class="me-3"><a href="#"><font-awesome-icon :icon="['fab', 'user']" /></a></li>
-            <li class="me-3"><a href="#"><font-awesome-icon :icon="['fab', 'twitter']" /></a></li>
-            <li class="me-3"><a href="#"><font-awesome-icon :icon="['fab', 'tiktok']" /></a></li>
-            <li><a href="#"><font-awesome-icon :icon="['fab', 'instagram']" /></a></li>
+            <li class="me-3"><a href="#"><font-awesome-icon :icon="['fas', 'user']" /></a></li>
+            <li class="me-3">|</li>
+            <li class="me-3"><a href="#"><font-awesome-icon :icon="['fas', 'shopping-basket']" /></a></li>
+       
           </ul>
         </div>
 
@@ -43,17 +42,29 @@
       max-width: 10rem;
       height: auto;
     }
-  
-    .navbar-nav .nav-link {
+  .me-3 {
+    color: white;
+    font-size: 1.1rem;
+  }
+  .me-3 a{
+    color: white;
+  }
+  .me-3 a:hover{
+    color: rgb(157, 157, 157);
+    transition: all 0.3s ;
+
+  }
+
+  .navbar-nav .nav-link {
       color: white;
       font-size: 1.1rem;
       font-family: 'Bebas Neue', sans-serif;
       padding: 10px 20px;
       margin-right: 5rem;
     }
+   
+
   
-    .navbar-nav .nav-link:hover {
-      color: #f0a500;
-    }
+  
   </style>
   

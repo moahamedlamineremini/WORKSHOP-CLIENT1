@@ -2,18 +2,17 @@
 import HelloWorld from './components/HelloWorld.vue'
 import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
+import Acceuil from './components/Acceuil.vue'
 </script>
 
 <template>
   <header>
 
-    <div class="wrapper">
       <Header />
-    </div>
   </header>
 
   <main>
-   
+   <Acceuil/>
   </main>
   <footer>
     <Footer/>
@@ -23,6 +22,7 @@ import Header from './components/Header.vue'
 <style scoped>
 body{
   color: black;
-}
+  margin: 0;}
+
 
 </style>./components/Footer.vue
