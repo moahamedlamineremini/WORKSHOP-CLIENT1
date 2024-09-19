@@ -1,3 +1,4 @@
+
 <script>
 export default {
   name: "typeWiriter",
@@ -55,7 +56,7 @@ export default {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Bayon&display=swap" rel="stylesheet">
   <div class="acceuil_section">
     <section class="container text-center">
       <h1> RETROMETROID
@@ -118,12 +119,307 @@ export default {
       
     </div>
   </div>
+  <section class="customisation container-fluid py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 text-center mb-4">
+      <h2>CUSTOMISATION</h2>
+      <h3>Construit ta propre console</h3>
+    </div>
+    <div class="col-lg-6 col-md-8 col-12">
+      <p class="customisation-text">
+        Faites revivre les icônes des plus grands classiques des jeux retro gaming ! 
+        Plongez dans l’âge d’or des jeux vidéo des années 70, 80, 90 et 2000. Retrouvez l’énergie de la nostalgie de vos parties légendaires ou découvrez des pépites du gaming qui vous avaient peut-être échappé à l’époque.
+        Avec plus de 90 000 jeux intégrés à nos consoles rétro, des heures de jeu vous attendent auprès de vos héros préférés, que ce soit en solo ou en compagnie de vos proches, grâce aux modes multijoueurs.
+      </p>
+    </div>
+    <div class="col-lg-4 col-md-6 col-12 d-flex justify-content-center">
+      <img src="../assets/games.png" class="img-fluid" alt="Console retro gaming">
+    </div>
+  </div>
+</section>
+<section>
+      <div class="console-cards">
+      <div class="card card-1">
+        <div class="card-content">
+        <h3>LE PLUS GRAND ECRAN</h3>
+        <h1>GAMEBOY COLOR</h1>
+        <button class="">Personnaliser</button>
+        </div>
+        <img src="../assets/gameboy_bleu.png" alt="Gameboy Color Image 1">
+        </div>
+      <div class="card card-2">
+        <div class="card-content">
+        <h3>LA PLUS POLYVALENTE</h3>
+        <h1>GAMEBOY ADVANCE</h1>
+        <button>Personnaliser</button>
+        </div>
+        <img src="../assets/gameboy_vert.png" alt="Gameboy Color Image 1">
+        </div>
+      <div class="card card-3">
+        <div class="card-content">
+        <h3>LA PLUS PRATIQUE</h3>
+        <h1>ADVANCE SP</h1>
+        <button>Personnaliser</button>
+        </div>
+        <img src="../assets/advance_sp.png" alt="Gameboy Color Image 1">
+        </div>
+      <div class="card card-4">
+        <div class="card-content">
+        <h3>L'ORIGINALE</h3>
+        <h1> GAMEBOY DMG</h1>
+        <button>Personnaliser</button>
+        </div>
+        <img src="../assets/gameboy_gris.png" alt="Gameboy Color Image 1">
+        </div>
+        <section class="edition-limitees container-fluid">
+  <div class="overlay d-flex justify-content-center align-items-center">
+    <div class="text-center text-white">
+      <h2 class="display-4 text-uppercase fw-bold">Édition Limitées</h2>
+      <p class="lead">Créés pour être unique</p>
+      <button class="btn-pink">Découvrez</button>
+    </div>
+  </div>
+</section>
+    </div>
+    
+    </section>
+                      
+                                                 
+                                                              
 </template>
+
+
 <style>
+.edition-limitees {
+
+  background-image: url('../assets/retro_sunset.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  max-width: 85%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  
+}
+
+.edition-limitees h2 {
+  font-family: 'Press Start 2P', sans-serif;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.edition-limitees p {
+  font-family: 'Press Start 2P', sans-serif;
+  color: #c0c0c0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.btn-pink {
+  background-color: #ff0080;
+  color: white;
+  border-radius: 40px;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-pink:hover {
+  background-color: #efcbdd;
+  border-color: #3b002a;
+  color: #ff0080;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+/* Responsiveness */
+@media (max-width: 768px) {
+  .edition-limitees {
+    height: 300px; /* Adjust height for smaller screens */
+  }
+  .edition-limitees h2 {
+    font-size: 1.75rem; /* Adjust text size */
+  }
+  .edition-limitees p {
+    font-size: 1rem; /* Adjust paragraph size */
+  }
+  .btn-pink {
+    padding: 8px 16px; /* Smaller padding for smaller screens */
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .edition-limitees {
+    height: 250px; /* Smaller height for extra small screens */
+  }
+  .edition-limitees h2 {
+    font-size: 1.5rem; /* Further adjust text size */
+  }
+  .edition-limitees p {
+    font-size: 0.9rem;
+  }
+  .btn-pink {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
+
+.edition-limitees h2 {
+  font-family: 'Press Start 2P', sans-serif;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.edition-limitees p {
+  font-family: 'Press Start 2P', sans-serif;
+  color: #c0c0c0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.btn-pink {
+  background-color: #ff0080;
+  color: white;
+  border-radius: 40px;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-pink:hover {
+  background-color: #efcbdd;
+  border-color: #3b002a;
+  color: #ff0080;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.console-cards {
+background: #16014A;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+}
+
+.console-cards .card {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 480px; /* Largeur uniforme */
+  min-height: 400px; /* Hauteur minimum */
+  text-align: center;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Espace entre contenu et image */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour effet de profondeur */
+}
+.console-cards .card-1 {
+
+  background: linear-gradient(135deg, #172a74,#0d1b4d, #21a9e1); /* Bleu */
+}
+
+/* Dégradé pour la deuxième carte */
+.console-cards .card-2 {
+ 
+  background: linear-gradient(135deg, #ffdd00, #40bfdb)
+}
+
+/* Dégradé pour la troisième carte */
+.console-cards .card-3 {
+ background: linear-gradient(135deg, #ff512f,#70047c, #dd2476); /* Rouge-rose */}
+
+/* Dégradé pour la quatrième carte */
+.console-cards .card-4 {
+  background: linear-gradient(135deg, #f7971e, #ff0000, #ffd200);}
+
+.console-cards .card h3, .console-cards .card h1 {
+  font-family: "Bayon", sans-serif;
+}
+
+.console-cards .card h3 {
+  font-size: 2.1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 3rem;
+}
+
+.console-cards .card h1 {
+  font-size: 4rem; /* Taille du texte plus grande */
+  margin-bottom: 2rem;
+
+}
+
+.console-cards .card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  align-self: flex-end; /* Assure que l'image est en bas de la carte */
+  margin-top: auto;
+}
+
+.console-cards .card-content {
+  padding: 20px;
+}
+
+.console-cards button:not(.btn-pink) {
+  background-color: #1B015C;
+  width: 8rem;
+  height: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all ease 0.3s;
+  color: #fff;
+  margin-bottom: 2rem; /* Ajoute un espace sous le bouton */
+}
+
+.console-cards button:hover {
+  color: #1B015C;
+  border: 2px solid #1B015C;
+  background-color: #f5f5f5;
+}
+
 /* Styling for the console showcase */
 /* Styling for the console showcase */
-/* Position the hydra icon at the bottom-left */
 /* Ensure the console-section is positioned relative */
+
+.customisation{
+  background-color: #16014A;
+  color: #FFFFFF;
+}
+  .customisation h2 {
+    font-family:"Press Start 2P", system-ui;
+    color: #951B81;
+  }
+  .customisation-text {
+    font-family:"Press Start 2P", system-ui;
+  }
+  @media (max-width: 768px) {
+  .customisation h2 {
+    font-size: 1.5rem;
+  }
+
+  .customisation h3 {
+    font-size: 1.2rem;
+  }
+
+  .customisation-text {
+    font-size: 0.7rem;
+    
+  }
+}
 .console-section {
   position: relative;
   /* Existing styling... */
@@ -131,7 +427,7 @@ export default {
 
 .console-section {
   min-height: 80vh;
-  background-image: url("../assets/page2.jpg");
+  background-color: #16014A;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -308,8 +604,9 @@ export default {
 }
 .acceuil_section{
     min-height: 100vh;
-    background-image: url("../assets/img_acceuil.png");
-    background-size: cover;
+    background: 
+    linear-gradient(to top, #16014A, rgba(0, 0, 255, 0) 20%), /* Dégradé du bas vers le haut */
+    url("../assets/img_acceuil.png"); /* Image de fond */    background-size: cover;
     background-position: center;
     overflow: hidden;
     display: flex;
@@ -404,7 +701,13 @@ h1 {
 /* Ajustement pour les écrans petits à moyens (375px à 768px) */
 @media (min-width: 500px) and (max-width: 768px) {
   .container h1 {
+    
     font-size: 2.5rem; /* Réduction pour les petits et moyens mobiles */
+  }
+  .acceuil_section::after {
+    height: 70px; /* Diminuer la hauteur du dégradé pour petits écrans */
+    bottom: 30px; /* Ajuster pour la hauteur de transition souhaitée */
+
   }
 
   span.typed-text {
