@@ -3,16 +3,19 @@ import HelloWorld from './components/HelloWorld.vue'
 import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
 import Acceuil from './components/Acceuil.vue'
+
+
 </script>
 
 <template>
+
   <header>
 
       <Header />
   </header>
 
   <main>
-   <Acceuil/>
+    <router-view/>
   </main>
   
   <footer>

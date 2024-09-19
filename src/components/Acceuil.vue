@@ -2,7 +2,6 @@
 import acceuilImage from '../assets/acceuil_2.png';
 import pspImage from '../assets/psp.webp';
 
-
 export default {
   name: "typeWiriter",
   data() {
@@ -70,12 +69,12 @@ export default {
 
   </script>
 <template>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=Bayon&display=swap" rel="stylesheet">
-
 <div class="acceuil_section">
     <section class="container text-center">
         <h1> RETROMETROID
@@ -211,7 +210,13 @@ overflow: hidden;
     color:#fff;
     margin-bottom: 5rem;
 }
+.customisation p{
+  
+  font-family: 'Press Start 2P', sans-serif;
+  color: #c0c0c0;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 
+}
 .customisation div{
     display: flex;
     justify-content: center;
@@ -451,13 +456,9 @@ h1 {
   border-radius: 20px;
   overflow: hidden;
 }
-h2 {
-  font-family: 'Press Start 2P', sans-serif;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
 
-p {
+
+.edition-limitees p{
   font-family: 'Press Start 2P', sans-serif;
   color: #c0c0c0;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
