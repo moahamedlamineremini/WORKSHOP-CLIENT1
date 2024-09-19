@@ -3,16 +3,21 @@ import HelloWorld from './components/HelloWorld.vue'
 import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
 import Acceuil from './components/Acceuil.vue'
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bayon&display=swap" rel="stylesheet">
   <header>
 
       <Header />
   </header>
 
   <main>
-   <Acceuil/>
+   <router-view/>
   </main>
   <footer>
     <Footer/>
