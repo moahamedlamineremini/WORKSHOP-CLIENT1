@@ -6,12 +6,12 @@ conn = mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
-    database="db_workshop"
+    database="db_workshop_test"
 )
 cursor = conn.cursor()
 
 # Dossier contenant les images
-image_folder = 'assets/gb/front'
+image_folder = 'vue/assets/gb/front'
 
 # Fonction pour obtenir l'ID de la couleur
 def get_color_id(color_name):

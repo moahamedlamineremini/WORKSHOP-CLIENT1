@@ -6,7 +6,7 @@ db_config = {
      'user': 'root',
     'password': '',
     'host': 'localhost',
-    'database': 'db_workshop'
+    'database': 'db_workshop_test'
 }
 
 # Connexion à la base de données

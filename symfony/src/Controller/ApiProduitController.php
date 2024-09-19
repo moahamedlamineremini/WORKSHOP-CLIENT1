@@ -8,12 +8,31 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Produit; // Assurez-vous d'importer l'entité Produit
 use GuzzleHttp\Exception\RequestException;
+use Nelmio\ApiDocBundle\Annotation\Model;
 
 class ApiProduitController extends AbstractController
 {
     /**
      * @Route("/api/produits", name="api_produits_list", methods={"GET"})
-     */
+     * @OA\Post(
+ *     path="/api/produits",
+ *     summary="Ajouter un nouveau produit",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             @OA\Property(property="nom", type="string", description="Nom du produit"),
+ *             @OA\Property(property="prix_base", type="number", format="float", description="Prix du produit"),
+ *             @OA\Property(property="description", type="string", description="Description du produit")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Produit créé avec succès"
+ *     )
+ * )
+ * @OA\Tag(name="Produits")
+ */
+     
     public function listProduits(EntityManagerInterface $entityManager): JsonResponse
     {
         // Récupérer tous les produits de la base de données

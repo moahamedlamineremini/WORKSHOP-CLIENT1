@@ -7,7 +7,7 @@ db_config = {
     'user': 'root',
     'password': '',
     'host': 'localhost',
-    'database': 'db_workshop'
+    'database': 'db_workshop_test'
 }
 # Connexion à la base de données
 conn = mysql.connector.connect(**db_config)
@@ -55,7 +55,7 @@ def insert_couleur(nom_couleur, code_hex):
     conn.commit()
 
 # Parcourir les fichiers dans le dossier assets/assets/gb/front
-base_path = 'ASSETS/GB/FRONT'
+base_path = 'vue/ASSETS/GB/FRONT'
 couleurs = set()
 
 for file in os.listdir(base_path):

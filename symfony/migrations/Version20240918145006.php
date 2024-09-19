@@ -46,6 +46,7 @@ final class Version20240918145006 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+
         $this->addSql('ALTER TABLE configuration_accessoire DROP FOREIGN KEY FK_F4CE8E3AE1455882');
         $this->addSql('ALTER TABLE configuration_accessoire DROP FOREIGN KEY FK_F4CE8E3A5CCC9255');
         $this->addSql('ALTER TABLE coque_couleur DROP FOREIGN KEY FK_F2D4BD9E220CEEF5');
@@ -68,5 +69,6 @@ final class Version20240918145006 extends AbstractMigration
         $this->addSql('DROP TABLE produit');
         $this->addSql('DROP TABLE produit_configuration');
         $this->addSql('DROP TABLE messenger_messages');
+        
     }
 }
