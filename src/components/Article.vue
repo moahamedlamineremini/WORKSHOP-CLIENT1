@@ -7,21 +7,16 @@
       activeSection: null,
       view: 'front',
       selectedOptions: {
-        base: null,
+        baseconsole: null,
         coque: null, // placeholder, will be set later
-        sideCoque: null, // placeholder, will be set later
         coqueArriere: null,
         ecran: null, // placeholder
         boutons: null, // placeholder
-        sideBoutons: null, // placeholder
         pads: null,
-        power: null,
-        coqueSpecial: null,
-        stickers: null,
         batterie: null,
         accessoires: null,
       },
-      totalPrice: 149.0,
+      totalPrice: 129.0,
       optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ÉCRAN IPS RÉTROÉCLAIRÉ', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
       colors: ['blue', 'red', 'green', 'yellow', 'violet', 'black'],
     };
@@ -39,9 +34,32 @@
       this.totalPrice += price;
     },
     handleRadioChange(option, value, price) {
-      this.selectedOptions[option] = value;
-      this.totalPrice += price;
-    },
+    // Récupérer l'ancienne valeur sélectionnée pour cet option
+    const previousValue = this.selectedOptions[option];
+
+    // Si l'utilisateur sélectionne l'option "Sans", remettre le prix à l'état initial
+    if (previousValue && previousValue !== value) {
+      if (previousValue === "Batterie + Câble USB-C") {
+        this.totalPrice -= 40;  // Remettre 40€ si Batterie + Câble USB-C était sélectionné
+      }
+      if (previousValue === "Je nai pas de console à fournir") {
+        this.totalPrice -= 40;  // Remettre 40€ si la base console était sélectionnée
+      }
+      if (previousValue === "Verre trempé") {
+        this.totalPrice -= 4.90;  // Remettre le prix du verre trempé
+      }
+      if (previousValue === "Coque Silicone") {
+        this.totalPrice -= 6.90;  // Remettre le prix de la coque silicone
+      }
+    }
+
+    // Mettre à jour la valeur sélectionnée
+    this.selectedOptions[option] = value;
+
+    // Ajouter le prix de la nouvelle option
+    this.totalPrice += price;
+    
+  },
   },
 };
 
@@ -88,20 +106,32 @@
           </template>
           <template v-else>
             <div>
-              <template v-if="option === 'batterie'">
+              <template v-if="option === 'BATTERIE'">
                 <div>
                   <label>
-                    <input type="radio" name="batterie" value="Sans" v-model="selectedOptions.batterie" @change="handleRadioChange('batterie', 'Sans', 0)" />
+                    <input type="radio" name="batterie" value="Sans" v-model="selectedOptions.batterie" @change="handleRadioChange('batterie', 'Sans', -40)" />
                     Sans
                   </label>
                   <label>
-                    <input type="radio" name="batterie" value="Batterie + Câble USB-C" v-model="selectedOptions.batterie" @change="handleRadioChange('batterie', 'Batterie + Câble USB-C', 15)" />
-                    Batterie + Câble USB-C (+15€)
+                    <input type="radio" name="batterie" value="Batterie + Câble USB-C" v-model="selectedOptions.batterie" @change="handleRadioChange('batterie', 'Batterie + Câble USB-C', 40)" />
+                    Batterie + Câble USB-C (+40€)
                   </label>
                 </div>
               </template>
+              <template v-if="option === 'BASE CONSOLE'">
+  <div>
+    <label>
+      <input type="radio" name="baseconsole" value="Sans" v-model="selectedOptions.baseconsole" @change="handleRadioChange('baseconsole', 'Sans',-40)" />
+      Je fournis ma console
+    </label>
+    <label>
+      <input type="radio" name="baseconsole" value="Je nai pas de console à fournir" v-model="selectedOptions.baseconsole" @change="handleRadioChange('baseconsole', 'Je nai pas de console à fournir', 40)" />
+      Je n'ai pas de console à fournir (+40€)
+    </label>
+  </div>
+</template>
 
-              <template v-if="option === 'accessoires'">
+              <template v-if="option === 'ACCESSOIRES'">
                 <div>
                   <label>
                     <input type="radio" name="accessoires" value="Verre trempé" v-model="selectedOptions.accessoires" @change="handleRadioChange('accessoires', 'Verre trempé', 4.90)" />
@@ -114,10 +144,7 @@
                 </div>
               </template>
 
-              <label>
-                <input type="checkbox" :name="option" @change="handleOptionChange(option, 5)" />
-                Ajouter {{ option.charAt(0).toUpperCase() + option.slice(1) }} (+5€)
-              </label>
+             
             </div>
           </template>
         </div>
@@ -132,7 +159,7 @@
       <p>Livraison dans 35 - 40 jours</p>
 
       <button class="submit-btn">
-        <i class="fas fa-shopping-cart"></i>
+        <i class="fas fa-shopping-cart">Ajouter au panier</i>
       </button>
     </div>
   </div>
