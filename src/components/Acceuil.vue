@@ -119,7 +119,7 @@ Avec plus de 90 000 jeux intégrés à nos consoles rétro, des heures de jeu vo
 
     <section>
       <div class="console-cards">
-      <div class="card">
+      <div class="card card-1">
         <div class="card-content">
         <h3>LE PLUS GRAND ECRAN</h3>
         <h1>GAMEBOY COLOR</h1>
@@ -127,25 +127,25 @@ Avec plus de 90 000 jeux intégrés à nos consoles rétro, des heures de jeu vo
         </div>
         <img src="../assets/gameboy_bleu.png" alt="Gameboy Color Image 1">
         </div>
-      <div class="card">
+      <div class="card card-2">
         <div class="card-content">
-        <h3>La plus polyvalente</h3>
+        <h3>LA PLUS POLYVALENTE</h3>
         <h1>GAMEBOY ADVANCE</h1>
         <button>Personnaliser</button>
         </div>
         <img src="../assets/gameboy_vert.png" alt="Gameboy Color Image 1">
         </div>
-      <div class="card">
+      <div class="card card-3">
         <div class="card-content">
-        <h3>La plus pratique</h3>
+        <h3>LA PLUS PRATIQUE</h3>
         <h1>ADVANCE SP</h1>
         <button>Personnaliser</button>
         </div>
         <img src="../assets/advance_sp.png" alt="Gameboy Color Image 1">
         </div>
-      <div class="card">
+      <div class="card card-4">
         <div class="card-content">
-        <h3>L'originale</h3>
+        <h3>L'ORIGINALE</h3>
         <h1> GAMEBOY DMG</h1>
         <button>Personnaliser</button>
         </div>
@@ -352,57 +352,98 @@ h1 {
 .console-cards {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   gap: 40px;
   padding: 20px;
 }
-.console-cards .card h3{
-font-family: "Bayon", sans-serif;
-}
-.console-cards .card h1{
-font-family: "Bayon", sans-serif;
-margin-bottom: 3rem;
-}
-
 
 .console-cards .card {
-  background: linear-gradient(135deg, #ffdd00, #40bfdb); 
-  border-radius: 40px;
+  border-radius: 20px;
   overflow: hidden;
-  width: calc(50% - 150px); 
-  min-height: fit-content;
+  width: 480px; /* Largeur uniforme */
+  min-height: 400px; /* Hauteur minimum */
   text-align: center;
   color: white;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-.console-cards .card img{
-  width: fit-content;
-  align-self: center;
   display: flex;
-  
+  flex-direction: column;
+  justify-content: space-between; /* Espace entre contenu et image */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour effet de profondeur */
 }
+.console-cards .card-1 {
+
+  background: linear-gradient(135deg, #172a74,#0d1b4d, #21a9e1); /* Bleu */
+}
+
+/* Dégradé pour la deuxième carte */
+.console-cards .card-2 {
+ 
+  background: linear-gradient(135deg, #ffdd00, #40bfdb)
+}
+
+/* Dégradé pour la troisième carte */
+.console-cards .card-3 {
+ background: linear-gradient(135deg, #ff512f,#70047c, #dd2476); /* Rouge-rose */}
+
+/* Dégradé pour la quatrième carte */
+.console-cards .card-4 {
+  background: linear-gradient(135deg, #f7971e, #ff0000, #ffd200);}
+
+.console-cards .card h3, .console-cards .card h1 {
+  font-family: "Bayon", sans-serif;
+}
+
+.console-cards .card h3 {
+  font-size: 2.1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 3rem;
+}
+
+.console-cards .card h1 {
+  font-size: 4rem; /* Taille du texte plus grande */
+  margin-bottom: 2rem;
+
+}
+
+.console-cards .card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  align-self: flex-end; /* Assure que l'image est en bas de la carte */
+  margin-top: auto;
+}
+
+.console-cards .card-content {
+  padding: 20px;
+}
+
 .console-cards button {
-background-color: #1B015C;
-text-align: center;
-width: fit-content;
-border-radius: 10px;
-transition: transform 0.3s ease, background-color 0.3s ease; /* Smooth transition */
-
-color: #fff;
-
+  background-color: #1B015C;
+  width: 8rem;
+  height: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all ease 0.3s;
+  color: #fff;
+  margin-bottom: 2rem; /* Ajoute un espace sous le bouton */
 }
-.console-cards button:hover {
-  transform: scale(1.1);
-background-color: #4d4d4d;
 
+.console-cards button:hover {
+  color: #1B015C;
+  border: 2px solid #1B015C;
+  background-color: #f5f5f5;
 }
 
 .edition-limitees {
-  background-image: url('../assets/retrobg.png');
+  background-image: url('../assets/retro_sunset.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
+  max-width: calc(85%);
+  margin-left: auto;
+    margin-right: auto;
   justify-content: center;
   align-items: center;
   align-self: center;
@@ -422,19 +463,25 @@ p {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
-.btn-pink{
+.btn-pink {
   background-color: #ff0080;
   color: white;
   border-radius: 40px;
   padding: 10px 20px;
-  border: none;
+  border: 2px solid transparent;
   text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .btn-pink:hover {
-  transition: all 0.3s;
-
-  background-color: #f657a6;
+  background-color: #efcbdd;
+  border-color: #3b002a;
+  color: #ff0080;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
+
 
 </style>
