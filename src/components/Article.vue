@@ -1,5 +1,15 @@
 <script >
+import defaultFrontCoque from '../assets/images_produit/FRONT/GB-Front-GB-GB_FRONT_SHELL_Blue0023.jpg';
+import defaultSideCoque from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_Blue0024.jpg';
+import defaultFrontButtons from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_BUTTON_Red0023.png';
+import defaultSideButtons from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTON_Red0023.png';
+import defaultFrontEcran from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_IPS_BLACK.png';
+import defaultSideEcran from '../assets/images_produit/SIDE/GB-Side-GB-SIDE-IPS_Black.png';
+import defaultFrontPads from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_PAD_Yellow0023.png';
+import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTON_Orange0023.png';
   export default {
+  
+    
   name: 'Article', // Le nom doit être 'Article'
   data() {
     return {
@@ -7,12 +17,18 @@
       activeSection: null,
       view: 'front',
       selectedOptions: {
-        baseconsole: null,
-        coque: null, // placeholder, will be set later
+        base: null,
+        coque: defaultFrontCoque,
+        sideCoque: defaultSideCoque,
         coqueArriere: null,
-        ecran: null, // placeholder
-        boutons: null, // placeholder
-        pads: null,
+        ecran: defaultFrontEcran,
+        sideEcran: defaultSideEcran,
+        boutons: defaultFrontButtons,
+        sideBoutons: defaultSideButtons,
+        pads: defaultFrontPads,
+        sidePads: defaultSidePads,
+        coqueSpecial: null,
+        stickers: null,
         batterie: null,
         accessoires: null,
       },
@@ -29,9 +45,9 @@
       this.activeSection = this.activeSection === option ? null : option;
     },
     handleOptionChange(option, price, color) {
-      const optionKey = this.view === 'side' ? `side${option.charAt(0).toUpperCase() + option.slice(1)}` : option;
-      this.selectedOptions[optionKey] = color;
-      this.totalPrice += price;
+        const optionKey = this.view === 'side' ? `side${option.charAt(0).toUpperCase() + option.slice(1)}` : option;
+        this.selectedOptions[optionKey] = color;
+        this.totalPrice += price;
     },
     handleRadioChange(option, value, price) {
     // Récupérer l'ancienne valeur sélectionnée pour cet option
@@ -61,8 +77,15 @@
     
   },
   },
+  mounted() {
+    console.log('Component mounted. Initial coque:', this.selectedOptions.coque);
+  },
+  watch: {
+    'selectedOptions.coque': function(newValue) {
+      console.log('Coque changed to:', newValue);
+    }
+  }
 };
-
 
 </script>
 
@@ -76,17 +99,11 @@
     </button>
 
     <div class="console-viewer">
-      <!-- Afficher l'image selon la vue actuelle (front ou side) -->
       <div class="image-wrapper">
-        <template v-if="view === 'front'">
-          <img v-if="selectedOptions.coque" :src="selectedOptions.coque" alt="coque front" class="personnalisation-image" />
-          <img v-if="selectedOptions.boutons" :src="selectedOptions.boutons" alt="boutons front" class="personnalisation-image boutons" />
-          <img v-if="selectedOptions.ecran" :src="selectedOptions.ecran" alt="écran front" class="personnalisation-image ecran" />
-        </template>
-        <template v-else>
-          <img v-if="selectedOptions.sideCoque" :src="selectedOptions.sideCoque" alt="coque side" class="personnalisation-image" />
-          <img v-if="selectedOptions.sideBoutons" :src="selectedOptions.sideBoutons" alt="boutons side" class="personnalisation-image boutons" />
-        </template>
+        <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" :alt="coque" class="personnalisation-image" />
+        <img :src="view === 'front' ? selectedOptions.boutons : selectedOptions.sideBoutons" alt="boutons" class="personnalisation-image boutons" />
+        <img :src="view === 'front' ? selectedOptions.ecran : selectedOptions.sideEcran" alt="écran" class="personnalisation-image ecran" />
+        <img :src="view === 'front' ? selectedOptions.pads : selectedOptions.sidePads" alt="pads" class="personnalisation-image pads" />
       </div>
     </div>
 
@@ -108,10 +125,7 @@
             <div>
               <template v-if="option === 'BATTERIE'">
                 <div>
-                  <label>
-                    <input type="radio" name="batterie" value="Sans" v-model="selectedOptions.batterie" @change="handleRadioChange('batterie', 'Sans', -40)" />
-                    Sans
-                  </label>
+                  
                   <label>
                     <input type="radio" name="batterie" value="Batterie + Câble USB-C" v-model="selectedOptions.batterie" @change="handleRadioChange('batterie', 'Batterie + Câble USB-C', 40)" />
                     Batterie + Câble USB-C (+40€)
@@ -120,10 +134,7 @@
               </template>
               <template v-if="option === 'BASE CONSOLE'">
   <div>
-    <label>
-      <input type="radio" name="baseconsole" value="Sans" v-model="selectedOptions.baseconsole" @change="handleRadioChange('baseconsole', 'Sans',-40)" />
-      Je fournis ma console
-    </label>
+ 
     <label>
       <input type="radio" name="baseconsole" value="Je nai pas de console à fournir" v-model="selectedOptions.baseconsole" @change="handleRadioChange('baseconsole', 'Je nai pas de console à fournir', 40)" />
       Je n'ai pas de console à fournir (+40€)
