@@ -81,12 +81,24 @@ if (curl_errno($ch)) {
 } else {
     $responseData = json_decode($response, true);
     $responses[] = $responseData;
+
+    // Récupérer l'ID du produit ajouté en dernier
+    if (isset($responseData['id'])) {
+        $lastProductId = $responseData['id']; // Mettre à jour l'ID du dernier produit
+       
+    }
+
 }
 
 curl_close($ch);
 
         }
+     
 
-        return new JsonResponse($responses);
+        // Ajouter l'ID du dernier produit à la réponse
+    return new JsonResponse([
+        'responses' => $responses,
+        'last_product_id' => $lastProductId
+    ]);
     }
 }

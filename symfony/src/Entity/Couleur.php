@@ -15,7 +15,7 @@ use ApiPlatform\Metadata\ApiResource;
  * @ORM\Entity
  */
 #[ApiResource]
-class Couleur
+class couleur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

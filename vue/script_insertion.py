@@ -44,7 +44,7 @@ def insert_produit(nom, prix_base, description):
 #insert_admin(1,'admin', 'admin', 'admin')
 
 # Insérer un produit
-insert_produit('GAMEBOY DMG', 129.00, 'La Game Boy DMG est une console de jeu portable classique de Nintendo, sortie pour la première fois en 1989. Elle est connue pour sa robustesse, sa longue durée de vie de la batterie et sa vaste bibliothèque de jeux. Cette console a marqué l\'histoire du jeu vidéo portable et reste un objet de collection prisé.')
+insert_produit('GAMEBOY DMG2', 130.00, 'La Game Boy DMG est une console de jeu portable.')
 
 
 # Fermer la connexion à la base de données
