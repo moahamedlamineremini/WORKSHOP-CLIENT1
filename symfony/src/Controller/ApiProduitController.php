@@ -93,8 +93,6 @@ if (curl_errno($ch)) {
 curl_close($ch);
 
         }
-     
-
         // Ajouter l'ID du dernier produit à la réponse
     return new JsonResponse([
         'responses' => $responses,
