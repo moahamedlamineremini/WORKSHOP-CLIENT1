@@ -1,0 +1,19 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+shop_list_products:
+    path: /products
+    controller: App\Controller\ShopController::listProducts
+    methods: [GET]
+
+shop_create_product:
+    path: /products
+    controller: App\Controller\ShopController::addProduct
+    methods: [POST]
+
+shop_show_db:
+    path: /produits
+    controller: App\Controller\ApiProduitController::listProduits
