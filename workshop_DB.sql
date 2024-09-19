@@ -68,6 +68,11 @@ CREATE TABLE image (
     FOREIGN KEY (couleur_id) REFERENCES couleur(couleur_id) ON DELETE SET NULL
 );
 
+ALTER TABLE image
+MODIFY COLUMN type_element ENUM('coque', 'coque_arriere', 'ecran', 'boutons', 'pads') NOT NULL;
+
+ALTER TABLE image ADD COLUMN image VARCHAR(255);
+
 -- Table configuration_accessoire
 CREATE TABLE configuration_accessoire (
     configuration_id INT NOT NULL,
@@ -77,7 +82,12 @@ CREATE TABLE configuration_accessoire (
     FOREIGN KEY (accessoire_id) REFERENCES accessoire(accessoire_id) ON DELETE CASCADE
 );
 
+ALTER TABLE configuration
+ADD COLUMN achete_console_chez_nous TINYINT(1) DEFAULT 0; -- 0 = fourni, 1 = acheté
+
+
 -- Ajout d'index sur les colonnes de clé étrangère et fréquemment filtrées
+
 
 -- Table produit_configuration
 CREATE INDEX idx_produit_id ON produit_configuration(produit_id);
