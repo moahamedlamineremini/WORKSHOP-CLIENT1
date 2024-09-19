@@ -17,3 +17,8 @@ shop_create_product:
 shop_show_db:
     path: /produits
     controller: App\Controller\ApiProduitController::listProduits
+
+api_produits_send:
+    path: /AddProduct
+    controller: App\Controller\ApiProduitController::sendProduitsToWooCommerce
+    methods: [POST]
