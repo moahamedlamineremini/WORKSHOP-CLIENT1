@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["vuejs-app/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

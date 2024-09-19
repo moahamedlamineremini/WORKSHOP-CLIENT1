@@ -1,0 +1,8 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+shop_list_products:
+    path: /products
+    controller: App\Controller\ShopController::listProducts
