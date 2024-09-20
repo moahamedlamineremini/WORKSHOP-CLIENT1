@@ -1,12 +1,14 @@
 <script >
 import defaultFrontCoque from '../assets/images_produit/FRONT/GB-Front-GB-GB_FRONT_SHELL_Blue0023.jpg';
-import defaultSideCoque from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_Blue0024.jpg';
+import defaultSideCoque from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_ClearRed0024.jpg';
+
+import defaultSideCoqueArriere from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_Black0024DUAL.png';
 import defaultFrontButtons from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_BUTTON_Red0023.png';
 import defaultSideButtons from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTON_Red0023.png';
-import defaultFrontEcran from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_IPS_BLACK.png';
+import defaultFrontEcran from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_IPS_DMG.png';
 import defaultSideEcran from '../assets/images_produit/SIDE/GB-Side-GB-SIDE-IPS_Black.png';
 import defaultFrontPads from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_PAD_Yellow0023.png';
-import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTON_Orange0023.png';
+import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_Black0024.png';
   export default {
   
     
@@ -20,7 +22,7 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
         base: null,
         coque: defaultFrontCoque,
         sideCoque: defaultSideCoque,
-        coqueArriere: null,
+        coqueArriere: defaultSideCoqueArriere,
         ecran: defaultFrontEcran,
         sideEcran: defaultSideEcran,
         boutons: defaultFrontButtons,
@@ -33,8 +35,12 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
         accessoires: null,
       },
       totalPrice: 129.0,
-      optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ÉCRAN IPS RÉTROÉCLAIRÉ', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
-      colors: ['blue', 'red', 'green', 'yellow', 'violet', 'black'],
+      optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ecran', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
+      colors: ['Black', 'ClearRed', 'Blue', 'Green'],
+      colors_side: ['Black', 'Blue'],
+      colors_btn: ['Black', 'Red', 'Blue', 'ClearGreen'],
+      colors_pads: ['Black', 'Red', 'Blue', 'Green' , 'Yellow'],
+      colors_ecran:['Black','DMG']
     };
   },
   methods: {
@@ -45,10 +51,39 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
       this.activeSection = this.activeSection === option ? null : option;
     },
     handleOptionChange(option, price, color) {
-        const optionKey = this.view === 'side' ? `side${option.charAt(0).toUpperCase() + option.slice(1)}` : option;
-        this.selectedOptions[optionKey] = color;
+    const optionKey = this.view === 'side' ? `side${option.charAt(0).toUpperCase() + option.slice(1)}` : option;
+
+    // Récupère l'ancien chemin de l'image
+    const currentImagePath = this.selectedOptions[optionKey];
+
+    // Vérifie si currentImagePath est défini
+    if (!currentImagePath) {
+        console.warn(`Current image path is undefined for option: ${optionKey}`);
+        return;
+    }
+
+    // Définit une liste des couleurs possibles
+    const availableColors = option === 'boutons' ? this.colors_btn 
+                         : option === 'pads' ? this.colors_pads 
+                         : option === 'ecran' ? this.colors_ecran
+                         : option === 'coqueArriere' ? this.colors_side
+                         : this.colors;
+
+    // Cherche la couleur actuelle dans le chemin
+    const currentColor = availableColors.find(c => currentImagePath.includes(`_${c}`));
+
+    // Si une couleur est trouvée, la remplace par la nouvelle couleur
+    if (currentColor) {
+        const newPath = currentImagePath.replace(`_${currentColor}`, `_${color}`);
+        this.selectedOptions[optionKey] = newPath;
         this.totalPrice += price;
-    },
+    } else {
+        console.warn(`Current image path: ${currentImagePath}`);
+        console.warn(`No matching color found for option: ${optionKey}`);
+    }
+},
+
+
     handleRadioChange(option, value, price) {
     // Récupérer l'ancienne valeur sélectionnée pour cet option
     const previousValue = this.selectedOptions[option];
@@ -78,11 +113,11 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
   },
   },
   mounted() {
-    console.log('Component mounted. Initial coque:', this.selectedOptions.coque);
+    console.log('Component mounted. Initial boutons:', this.selectedOptions.ecran);
   },
   watch: {
-    'selectedOptions.coque': function(newValue) {
-      console.log('Coque changed to:', newValue);
+    'selectedOptions.ecran': function(newValue) {
+      console.log('ecran changed to:', newValue);
     }
   }
 };
@@ -100,7 +135,9 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
 
     <div class="console-viewer">
       <div class="image-wrapper">
-        <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" :alt="coque" class="personnalisation-image" />
+        <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" alt="coque" class="personnalisation-image" />
+    
+        <img v-if="view === 'side'" :src="selectedOptions.coqueArriere" alt="coque arriere" class="personnalisation-image" />
         <img :src="view === 'front' ? selectedOptions.boutons : selectedOptions.sideBoutons" alt="boutons" class="personnalisation-image boutons" />
         <img :src="view === 'front' ? selectedOptions.ecran : selectedOptions.sideEcran" alt="écran" class="personnalisation-image ecran" />
         <img :src="view === 'front' ? selectedOptions.pads : selectedOptions.sidePads" alt="pads" class="personnalisation-image pads" />
@@ -115,9 +152,33 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
           <i :class="`fas ${activeSection === option ? 'fa-chevron-down' : 'fa-chevron-right'}`"></i>
         </div>
         <div v-if="activeSection === option" class="option-content">
-          <template v-if="option === 'COQUE' || option === 'BOUTONS'|| option === 'COQUE ARRIERE'|| option === 'ÉCRAN IPS RÉTROÉCLAIRÉ'|| option === 'PADS'">
+          <template v-if="option === 'COQUE'">
             <div class="color-options">
       <button v-for="color in colors" :key="color" class="color-circle" :class="color" @click="handleOptionChange('coque', 10, color)">
+      </button>
+    </div>
+          </template>
+          <template v-if="option === 'COQUE ARRIERE'">
+            <div class="color-options">
+      <button v-for="color in colors_side" :key="color" class="color-circle" :class="color" @click="handleOptionChange('coqueArriere', 10, color)">
+      </button>
+    </div>
+          </template>
+          <template v-if="option === 'BOUTONS'">
+            <div class="color-options">
+      <button v-for="color in colors_btn" :key="color" class="color-circle" :class="color" @click="handleOptionChange('boutons', 10, color)">
+      </button>
+    </div>
+          </template>
+          <template v-if="option === 'PADS'">
+            <div class="color-options">
+      <button v-for="color in colors_pads" :key="color" class="color-circle" :class="color" @click="handleOptionChange('pads', 10, color)">
+      </button>
+    </div>
+          </template>
+          <template v-if="option === 'ecran'">
+            <div class="color-options">
+      <button v-for="color in colors_ecran" :key="color" class="color-circle" :class="color" @click="handleOptionChange('ecran', 10, color)">
       </button>
     </div>
           </template>
@@ -184,8 +245,11 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
     --color-green: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
     --color-purple: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     --color-yellow: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-    --color-black: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+    --color-black: linear-gradient(135deg, #000000 0%, #000000 100%);
     --color-white: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    --color-pink: #c63f70;
+    --color-orange:#fa8333;
+    
 }
 
 .personnalisation-container {
@@ -302,31 +366,31 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTO
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.color-circle.red {
+.color-circle.Red {
     background: var(--color-red);
 }
 
-.color-circle.blue {
+.color-circle.Blue {
     background: var(--color-blue);
 }
 
-.color-circle.green {
+.color-circle.Green {
     background: var(--color-green);
 }
 
-.color-circle.purple {
+.color-circle.Purple {
     background: var(--color-purple);
 }
 
-.color-circle.yellow {
+.color-circle.Yellow {
     background: var(--color-yellow);
 }
 
-.color-circle.black {
+.color-circle.Black {
     background: var(--color-black);
 }
 
-.color-circle.white {
+.color-circle.White {
     background: var(--color-white);
 }
 
