@@ -1,8 +1,8 @@
 <script >
 import defaultFrontCoque from '../assets/images_produit/FRONT/GB-Front-GB-GB_FRONT_SHELL_Blue0023.jpg';
-import defaultSideCoque from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_ClearRed0024.jpg';
+import defaultSideCoque from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_Black0024.jpg';
 
-import defaultSideCoqueArriere from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_Black0024DUAL.png';
+import defaultSideCoqueArriere from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_Blue0024DUAL.png';
 import defaultFrontButtons from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_BUTTON_Red0023.png';
 import defaultSideButtons from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_BUTTON_Red0023.png';
 import defaultFrontEcran from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_IPS_DMG.png';
@@ -22,7 +22,7 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
         base: null,
         coque: defaultFrontCoque,
         sideCoque: defaultSideCoque,
-        coqueArriere: defaultSideCoqueArriere,
+        sideCoqueArriere: defaultSideCoqueArriere,
         ecran: defaultFrontEcran,
         sideEcran: defaultSideEcran,
         boutons: defaultFrontButtons,
@@ -35,10 +35,11 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
         accessoires: null,
       },
       totalPrice: 129.0,
-      optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ecran', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
-      colors: ['Black', 'ClearRed', 'Blue', 'Green'],
-      colors_side: ['Black', 'Blue'],
-      colors_btn: ['Black', 'Red', 'Blue', 'ClearGreen'],
+      optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ECRAN', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
+      colors: ['Black', 'Blue', 'Green'],
+     
+      colors_side: ['Black',  'Blue', 'Green'],
+      colors_btn: ['Black', 'Red', 'Blue'],
       colors_pads: ['Black', 'Red', 'Blue', 'Green' , 'Yellow'],
       colors_ecran:['Black','DMG']
     };
@@ -48,8 +49,8 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
       this.view = this.view === 'front' ? 'side' : 'front';
     },
     setActiveSection(option) {
-      this.activeSection = this.activeSection === option ? null : option;
-    },
+      this.activeSection = this.activeSection === option ? null : option;},
+
     handleOptionChange(option, price, color) {
     const optionKey = this.view === 'side' ? `side${option.charAt(0).toUpperCase() + option.slice(1)}` : option;
 
@@ -137,7 +138,7 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
       <div class="image-wrapper">
         <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" alt="coque" class="personnalisation-image" />
     
-        <img v-if="view === 'side'" :src="selectedOptions.coqueArriere" alt="coque arriere" class="personnalisation-image" />
+        <img v-if="view === 'side'" :src="selectedOptions.sideCoqueArriere" alt="coque arriere" class="personnalisation-image" />
         <img :src="view === 'front' ? selectedOptions.boutons : selectedOptions.sideBoutons" alt="boutons" class="personnalisation-image boutons" />
         <img :src="view === 'front' ? selectedOptions.ecran : selectedOptions.sideEcran" alt="écran" class="personnalisation-image ecran" />
         <img :src="view === 'front' ? selectedOptions.pads : selectedOptions.sidePads" alt="pads" class="personnalisation-image pads" />
@@ -160,7 +161,7 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
           </template>
           <template v-if="option === 'COQUE ARRIERE'">
             <div class="color-options">
-      <button v-for="color in colors_side" :key="color" class="color-circle" :class="color" @click="handleOptionChange('coqueArriere', 10, color)">
+      <button v-for="color in colors_side" :key="color" class="color-circle" :class="color" @click="handleOptionChange('CoqueArriere', 10, color)">
       </button>
     </div>
           </template>
@@ -176,7 +177,7 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
       </button>
     </div>
           </template>
-          <template v-if="option === 'ecran'">
+          <template v-if="option === 'ECRAN'">
             <div class="color-options">
       <button v-for="color in colors_ecran" :key="color" class="color-circle" :class="color" @click="handleOptionChange('ecran', 10, color)">
       </button>
@@ -240,15 +241,16 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
 <style>
 
 :root {
-    --color-red: linear-gradient(135deg, #ff4b2b 0%, #ff416c 100%);
+    --color-red: linear-gradient(135deg, #ff4b2b 0%, #ff0000 100%);
     --color-blue: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
     --color-green: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+    --color-cleargreen: linear-gradient(135deg, #87ff79 0%, #ebede8 100%);
     --color-purple: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     --color-yellow: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
     --color-black: linear-gradient(135deg, #000000 0%, #000000 100%);
     --color-white: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-    --color-pink: #c63f70;
-    --color-orange:#fa8333;
+    --color-dmg: linear-gradient(135deg, #626262 0%, #e3e2e2 100%);
+    
     
 }
 
@@ -278,8 +280,8 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
 }
 
 .personnalisation-image:hover {
-    transform: perspective(500px) rotateX(0deg) translateY(-10px); /* Effet d'élévation au survol */
-    box-shadow: 0 30px 40px rgba(0, 0, 0, 0.4); /* Accentuation de l'ombre lors du hover */
+    transform: perspective(500px) rotateX(0deg) translateY(-5px); /* Effet d'élévation au survol */
+   
 }
 
 .form-container {
@@ -373,9 +375,15 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
 .color-circle.Blue {
     background: var(--color-blue);
 }
+.color-circle.DMG {
+    background: var(--color-dmg);
+}
 
 .color-circle.Green {
     background: var(--color-green);
+}
+.color-circle.ClearGreen {
+    background: var(--color-cleargreen);
 }
 
 .color-circle.Purple {
