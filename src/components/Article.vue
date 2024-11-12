@@ -16,12 +16,12 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
   name: 'Article', // Le nom doit être 'Article'
   data() {
     return {
-      title: 'Personnalisation de Console',
-      activeSection: null,
-      view: 'front',
-      selectedColor: null,
-      selectedImage: defaultFrontBatterie,
-            selectedOptions: {
+    title: 'Personnalisation de Console',
+    activeSection: null,
+    view: 'front',
+    selectedColor: null,
+    selectedImage: defaultFrontBatterie,
+    selectedOptions: {
         base: null,
         coque: defaultFrontCoque,
         sideCoque: defaultSideCoque,
@@ -32,8 +32,6 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
         sideBoutons: defaultSideButtons,
         pads: defaultFrontPads,
         sidePads: defaultSidePads,
-        coqueSpecial: null,
-        stickers: null,
         batterie: defaultFrontBatterie,
         sideBatterie: defaultSideBatterie,
         accessoires1: null,
@@ -41,10 +39,8 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
         accessoires3: null,
       },
       totalPrice: 129.0,
-      initialPrice: 129.0, 
       optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ECRAN', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
       colors: ['Black', 'Blue', 'Green'],
-     
       colors_side: ['Black',  'Blue', 'Green'],
       colors_btn: ['Black', 'Red', 'Blue'],
       colors_pads: ['Black', 'Red', 'Blue', 'Green' , 'Yellow'],
@@ -93,21 +89,23 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
     }
 },
 updatePriceCoquearriere(color) {
-    // Si l'option "sans couleur" est sélectionnée
     if (color === null) {
         if (this.selectedColor !== null) {
-            this.totalPrice -= 11.9; // Retire 11.9€ si une couleur était déjà sélectionnée
+            this.totalPrice -= 11.9;
+            this.selectedOptions.baseAdded = false;
+
         }
-        this.selectedColor = null; // Remet la couleur sélectionnée à null
-        return; // Sort de la fonction
+        this.selectedColor = null; 
+        return; 
     }
 
-    // Si une nouvelle couleur est sélectionnée et que l'ancienne n'était pas null
     if (this.selectedColor === null) {
-        this.totalPrice += 11.9; // Ajoute 11.9€ pour la première couleur
+        this.totalPrice += 11.9; 
+        this.selectedOptions.baseAdded = true;
+
     }
 
-    this.selectedColor = color; // Met à jour la couleur sélectionnée
+    this.selectedColor = color; 
 },
 
 
