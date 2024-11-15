@@ -20,7 +20,6 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
     activeSection: null,
     view: 'front',
     selectedColor: null,
-    selectedImage: defaultFrontBatterie,
     selectedOptions: {
         base: null,
         coque: defaultFrontCoque,
@@ -32,7 +31,7 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
         sideBoutons: defaultSideButtons,
         pads: defaultFrontPads,
         sidePads: defaultSidePads,
-        batterie: defaultFrontBatterie,
+        frontBatterie: defaultFrontBatterie,
         sideBatterie: defaultSideBatterie,
         accessoires1: null,
         accessoires2: null,
@@ -68,10 +67,10 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
 
     // Définit une liste des couleurs possibles
     const availableColors = option === 'boutons' ? this.colors_btn 
-                         : option === 'pads' ? this.colors_pads 
-                         : option === 'ecran' ? this.colors_ecran
-                         : option === 'coqueArriere' ? this.colors_side
-                         : this.colors;
+                        : option === 'pads' ? this.colors_pads 
+                        : option === 'ecran' ? this.colors_ecran
+                        : option === 'coqueArriere' ? this.colors_side
+                        : this.colors;
 
     // Cherche la couleur actuelle dans le chemin
     const currentColor = availableColors.find(c => currentImagePath.includes(`_${c}`));
@@ -129,13 +128,15 @@ updatePriceAndImageBatterie() {
         if (!this.selectedOptions.batterieAdded) {
             this.totalPrice += 40;
             this.selectedOptions.batterieAdded = true; // Marque que le prix de la batterie a été ajouté
-            this.selectedImage = this.defaultFrontBatterie;
+            this.selectedOptions.frontBatterie = this.defaultFrontBatterie; // Réinitialise l'image
+            this.selectedOptions.sideBatterie = this.defaultSideBatterie;
         }
     } else if (this.selectedOptions.batterie === "") {
         if (this.selectedOptions.batterieAdded) {
             this.totalPrice -= 40;
             this.selectedOptions.batterieAdded = false; // Marque que le prix de la batterie a été retiré
-            this.selectedImage = ''; // Réinitialise l'image
+            this.selectedOptions.frontBatterie = ''; // Réinitialise l'image
+            this.selectedOptions.sideBatterie = '';
         }
     }
 },
@@ -208,7 +209,7 @@ updatePriceAccessoire(accessoire) {
     <div class="console-viewer">
       <div class="image-wrapper">
         <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" alt="coque" class="personnalisation-image" />
-        <img :src="view === 'front' ? selectedOptions.batterie : selectedOptions.sideBatterie" alt="batterie" class="personnalisation-image batterie" />
+        <img :src="view === 'front' ? selectedOptions.frontBatterie : selectedOptions.sideBatterie" alt="img batterie" class="personnalisation-image batterie" />
     
         <img v-if="view === 'side'" :src="selectedOptions.sideCoqueArriere" alt="coque arriere" class="personnalisation-image" />
         <img :src="view === 'front' ? selectedOptions.boutons : selectedOptions.sideBoutons" alt="boutons" class="personnalisation-image boutons" />
