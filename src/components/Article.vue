@@ -9,16 +9,18 @@ import defaultFrontEcran from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_
 import defaultSideEcran from '../assets/images_produit/SIDE/GB-Side-GB-SIDE-IPS_Black.png';
 import defaultFrontPads from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_PAD_Yellow0023.png';
 import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_Black0024.png';
-  export default {
-  
-    
+import defaultFrontBatterie from '../assets/images_produit/FRONT/GB-Front-Front_USBC-02.png';
+import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.png';
+export default {
   name: 'Article', // Le nom doit être 'Article'
   data() {
     return {
       title: 'Personnalisation de Console',
       activeSection: null,
       view: 'front',
-      selectedOptions: {
+      selectedColor: null,
+      selectedImage: defaultFrontBatterie,
+            selectedOptions: {
         base: null,
         coque: defaultFrontCoque,
         sideCoque: defaultSideCoque,
@@ -31,10 +33,14 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
         sidePads: defaultSidePads,
         coqueSpecial: null,
         stickers: null,
-        batterie: null,
-        accessoires: null,
+        batterie: defaultFrontBatterie,
+        sideBatterie: defaultSideBatterie,
+        accessoires1: null,
+        accessoires2: null,
+        accessoires3: null,
       },
       totalPrice: 129.0,
+      initialPrice: 129.0, 
       optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ECRAN', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
       colors: ['Black', 'Blue', 'Green'],
      
@@ -74,44 +80,110 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
     const currentColor = availableColors.find(c => currentImagePath.includes(`_${c}`));
 
     // Si une couleur est trouvée, la remplace par la nouvelle couleur
-    if (currentColor) {
+    if (currentColor ) {
         const newPath = currentImagePath.replace(`_${currentColor}`, `_${color}`);
         this.selectedOptions[optionKey] = newPath;
         this.totalPrice += price;
-    } else {
+    }
+     else {
+
         console.warn(`Current image path: ${currentImagePath}`);
         console.warn(`No matching color found for option: ${optionKey}`);
     }
 },
-
-
-    handleRadioChange(option, value, price) {
-    // Récupérer l'ancienne valeur sélectionnée pour cet option
-    const previousValue = this.selectedOptions[option];
-
-    // Si l'utilisateur sélectionne l'option "Sans", remettre le prix à l'état initial
-    if (previousValue && previousValue !== value) {
-      if (previousValue === "Batterie + Câble USB-C") {
-        this.totalPrice -= 40;  // Remettre 40€ si Batterie + Câble USB-C était sélectionné
-      }
-      if (previousValue === "Je nai pas de console à fournir") {
-        this.totalPrice -= 40;  // Remettre 40€ si la base console était sélectionnée
-      }
-      if (previousValue === "Verre trempé") {
-        this.totalPrice -= 4.90;  // Remettre le prix du verre trempé
-      }
-      if (previousValue === "Coque Silicone") {
-        this.totalPrice -= 6.90;  // Remettre le prix de la coque silicone
-      }
+updatePriceCoquearriere(color) {
+    // Si l'option "sans couleur" est sélectionnée
+    if (color === null) {
+        if (this.selectedColor !== null) {
+            this.totalPrice -= 11.9; // Retire 11.9€ si une couleur était déjà sélectionnée
+        }
+        this.selectedColor = null; // Remet la couleur sélectionnée à null
+        return; // Sort de la fonction
     }
 
-    // Mettre à jour la valeur sélectionnée
-    this.selectedOptions[option] = value;
+    // Si une nouvelle couleur est sélectionnée et que l'ancienne n'était pas null
+    if (this.selectedColor === null) {
+        this.totalPrice += 11.9; // Ajoute 11.9€ pour la première couleur
+    }
 
-    // Ajouter le prix de la nouvelle option
-    this.totalPrice += price;
-    
-  },
+    this.selectedColor = color; // Met à jour la couleur sélectionnée
+},
+
+
+
+updatePriceConsole() {
+    if (this.selectedOptions.base === "Je nai pas de console à fournir") {
+        if (!this.selectedOptions.baseAdded) {
+            this.totalPrice += 40;
+            this.selectedOptions.baseAdded = true; // Marque que le prix de base a été ajouté
+        }
+    } else if (this.selectedOptions.base === "J'ai déjà une console") {
+        if (this.selectedOptions.baseAdded) {
+            this.totalPrice -= 40;
+            this.selectedOptions.baseAdded = false; // Marque que le prix de base a été retiré
+        }
+    }
+},
+
+updatePriceAndImageBatterie() {
+    if (this.selectedOptions.batterie === "batterie") {
+        if (!this.selectedOptions.batterieAdded) {
+            this.totalPrice += 40;
+            this.selectedOptions.batterieAdded = true; // Marque que le prix de la batterie a été ajouté
+            this.selectedImage = this.defaultFrontBatterie;
+        }
+    } else if (this.selectedOptions.batterie === "") {
+        if (this.selectedOptions.batterieAdded) {
+            this.totalPrice -= 40;
+            this.selectedOptions.batterieAdded = false; // Marque que le prix de la batterie a été retiré
+            this.selectedImage = ''; // Réinitialise l'image
+        }
+    }
+},
+
+addclickeffet(){
+    const button = document.querySelector('.color-none');
+    button.classList.toggle('clicked');
+},
+updatePriceAccessoire(accessoire) {
+        switch (accessoire) {
+            case 'accessoire1':
+                if (this.selectedOptions.accessoires1) {
+                    if (!this.selectedOptions.accessoire1Added) {
+                        this.totalPrice += 4.9;
+                        this.selectedOptions.accessoire1Added = true;
+                    }
+                } else if (this.selectedOptions.accessoire1Added) {
+                    this.totalPrice -= 4.9;
+                    this.selectedOptions.accessoire1Added = false;
+                }
+                break;
+            case 'accessoire2':
+                if (this.selectedOptions.accessoires2) {
+                    if (!this.selectedOptions.accessoire2Added) {
+                        this.totalPrice += 6.9;
+                        this.selectedOptions.accessoire2Added = true;
+                    }
+                } else if (this.selectedOptions.accessoire2Added) {
+                    this.totalPrice -= 6.9;
+                    this.selectedOptions.accessoire2Added = false;
+                }
+                break;
+            case 'accessoire3':
+                if (this.selectedOptions.accessoires3) {
+                    if (this.selectedOptions.accessoire1Added) {
+                        this.totalPrice -= 4.9;
+                        this.selectedOptions.accessoire1Added = false;
+                    }
+                    if (this.selectedOptions.accessoire2Added) {
+                        this.totalPrice -= 6.9;
+                        this.selectedOptions.accessoire2Added = false;
+                    }
+                }
+                break;
+        }
+    },
+
   },
   mounted() {
     console.log('Component mounted. Initial boutons:', this.selectedOptions.ecran);
@@ -123,21 +195,23 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
   }
 };
 
+
 </script>
 
 <template>
-    <div class="personnalisation-container">
+  <div class="personnalisation-container">
       <h1 class="personnalisation-title" style="color: #544297">{{ title || 'Personnalisation de Console' }}</h1>
   
       <!-- Bouton pour basculer entre front et side -->
       <button class="rotate-btn" @click="toggleView">
-        <i :class="view === 'front' ? 'fas fa-sync-alt' : 'fas fa-undo'"></i>
+        {{ view === 'front' ? 'Voir le côté' : "Voir l'avant" }}
       </button>
   
       <div class="console-viewer">
         <div class="image-wrapper">
           <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" alt="coque" class="personnalisation-image" />
-  
+          <img :src="view === 'front' ? selectedOptions.batterie : selectedOptions.sideBatterie" alt="batterie" class="personnalisation-image batterie" />
+      
           <img v-if="view === 'side'" :src="selectedOptions.sideCoqueArriere" alt="coque arriere" class="personnalisation-image" />
           <img :src="view === 'front' ? selectedOptions.boutons : selectedOptions.sideBoutons" alt="boutons" class="personnalisation-image boutons" />
           <img :src="view === 'front' ? selectedOptions.ecran : selectedOptions.sideEcran" alt="écran" class="personnalisation-image ecran" />
@@ -155,65 +229,92 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
           <div v-if="activeSection === option" class="option-content">
             <template v-if="option === 'COQUE'">
               <div class="color-options">
-                <button v-for="color in colors" :key="color" class="color-circle" :class="color" @click="handleOptionChange('coque', 10, color)">
-                </button>
-              </div>
+        <button v-for="color in colors" :key="color" class="color-circle" :class="color" @click="handleOptionChange('coque', 0, color)">
+        </button>
+      </div>
             </template>
             <template v-if="option === 'COQUE ARRIERE'">
-              <div class="color-options">
-                <button v-for="color in colors_side" :key="color" class="color-circle" :class="color" @click="handleOptionChange('CoqueArriere', 10, color)">
-                </button>
-              </div>
-            </template>
+      <div class="color-options">
+          <button 
+              v-for="color in colors_side" 
+              :key="color" 
+              class="color-circle" 
+              :class="color" 
+              @click="handleOptionChange('CoqueArriere', 0, color); updatePriceCoquearriere(color)">
+          </button>
+          <button 
+        class="color-none" 
+        @click="updatePriceCoquearriere(null);addclickeffet()">
+        Sans
+      </button>
+      </div>
+  </template>
+  
             <template v-if="option === 'BOUTONS'">
               <div class="color-options">
-                <button v-for="color in colors_btn" :key="color" class="color-circle" :class="color" @click="handleOptionChange('boutons', 10, color)">
-                </button>
-              </div>
+        <button v-for="color in colors_btn" :key="color" class="color-circle" :class="color" @click="handleOptionChange('boutons', 0, color)">
+        </button>
+      </div>
             </template>
             <template v-if="option === 'PADS'">
               <div class="color-options">
-                <button v-for="color in colors_pads" :key="color" class="color-circle" :class="color" @click="handleOptionChange('pads', 10, color)">
-                </button>
-              </div>
+        <button v-for="color in colors_pads" :key="color" class="color-circle" :class="color" @click="handleOptionChange('pads', 0, color)">
+        </button>
+      </div>
             </template>
             <template v-if="option === 'ECRAN'">
               <div class="color-options">
-                <button v-for="color in colors_ecran" :key="color" class="color-circle" :class="color" @click="handleOptionChange('ecran', 10, color)">
-                </button>
-              </div>
+        <button v-for="color in colors_ecran" :key="color" class="color-circle" :class="color" @click="handleOptionChange('ecran', 0, color)">
+        </button>
+      </div>
             </template>
             <template v-else>
               <div>
                 <template v-if="option === 'BATTERIE'">
                   <div>
+                    
                     <label>
-                      <input type="radio" name="batterie" value="Batterie + Câble USB-C" v-model="selectedOptions.batterie" @change="handleRadioChange('batterie', 'Batterie + Câble USB-C', 40)" />
+                      <input type="radio" name="batterie" value="batterie" v-model="selectedOptions.batterie" @change="updatePriceAndImageBatterie() " />
                       Batterie + Câble USB-C (+40€)
                     </label>
+                    <label>
+    <input type="radio" name="batterie" value="" v-model="selectedOptions.batterie" @change="updatePriceAndImageBatterie()" />
+    Aucune batterie
+  </label>
+                 
                   </div>
                 </template>
                 <template v-if="option === 'BASE CONSOLE'">
                   <div>
-                    <label>
-                      <input type="radio" name="baseconsole" value="Je nai pas de console à fournir" v-model="selectedOptions.baseconsole" @change="handleRadioChange('baseconsole', 'Je nai pas de console à fournir', 40)" />
-                      Je n'ai pas de console à fournir (+40€)
-                    </label>
-                  </div>
-                </template>
+      <label>
+        <input type="radio" name="baseconsole" value="Je nai pas de console à fournir" v-model="selectedOptions.base" @change="updatePriceConsole()" />
+        Je n'ai pas de console à fournir (+40€)
+      </label>
+      <label>
+        <input type="radio" name="baseconsole" value="J'ai déjà une console" v-model="selectedOptions.base" @change="updatePriceConsole()"  />
+        J'ai déjà une console (0€) 
+      </label>
+    </div>
+  </template>
+  <template v-if="option === 'ACCESSOIRES'">
+      <div>
+          <label>
+              <input type="radio" name="accessoires" value="accessoire1" v-model="selectedOptions.accessoires1" @change="updatePriceAccessoire('accessoire1')" />
+              Verre trempé (+4.90€)
+          </label>
+          <label>
+              <input type="radio" name="accessoires" value="accessoire2" v-model="selectedOptions.accessoires2" @change="updatePriceAccessoire('accessoire2')" />
+              Coque Silicone (+6.90€)
+          </label>
+          <label>
+              <input type="radio" name="accessoires" value="accessoire3" v-model="selectedOptions.accessoires3" @change="updatePriceAccessoire('accessoire3')" />
+              Pas d'accessoire (+0€)
+          </label>
+      </div>
+  </template>
   
-                <template v-if="option === 'ACCESSOIRES'">
-                  <div>
-                    <label>
-                      <input type="radio" name="accessoires" value="Verre trempé" v-model="selectedOptions.accessoires" @change="handleRadioChange('accessoires', 'Verre trempé', 4.90)" />
-                      Verre trempé (+4.90€)
-                    </label>
-                    <label>
-                      <input type="radio" name="accessoires" value="Coque Silicone" v-model="selectedOptions.accessoires" @change="handleRadioChange('accessoires', 'Coque Silicone', 6.90)" />
-                      Coque Silicone (+6.90€)
-                    </label>
-                  </div>
-                </template>
+  
+               
               </div>
             </template>
           </div>
@@ -233,8 +334,6 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
       </div>
     </div>
   </template>
-  
-
 <style>
 
 :root {
