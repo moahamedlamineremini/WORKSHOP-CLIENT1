@@ -326,7 +326,7 @@ updatePriceAccessoire(accessoire) {
         <h3>{{ totalPrice.toFixed(2) }}€</h3>
         <h1>Prix total</h1>
         <p>Acompte (30%) : {{ (totalPrice * 0.3).toFixed(2) }}€</p>
-        <p>Livraison dans 35 - 40 jours</p>
+        <p>Livraisoon dans 35 - 40 jours</p>
   
         <button class="submit-btn">
           <i class="fas fa-shopping-cart">Ajouter au panier</i>
