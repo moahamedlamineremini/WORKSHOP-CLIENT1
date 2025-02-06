@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
 
-// Ajoute les icônes à la bibliothèque
 library.add(faUser, faFacebook, faTwitter, faTiktok, faInstagram, faShoppingBasket)
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)

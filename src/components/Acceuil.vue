@@ -14,7 +14,7 @@ export default {
       newTextDelay: 2000,
       displayTextArrayIndex: 0,
       charIndex: 0,
-      currentSlide: 0, // index de la diapositive actuelle
+      currentSlide: 0, 
       carouselItems: [
         { image: acceuilImage, alt: 'description 1' },
         { image: pspImage, alt: 'description 9' },
@@ -27,11 +27,9 @@ export default {
   
   created() {
     setTimeout(this.typeText, this.newTextDelay + 500);
-    // Démarre le carousel
-    setInterval(this.nextSlide, 5000); // Change de diapositive toutes les 5 secondes
+    setInterval(this.nextSlide, 5000);
   },
   methods: {
-    //methode pour le titre en typewriter )
     typeText() {
       if (this.charIndex < this.displayTextArray[this.displayTextArrayIndex].length) {
         if (!this.typeStatus) this.typeStatus = true;
@@ -56,7 +54,6 @@ export default {
         setTimeout(this.typeText, this.typingSpeed + 1000);
       }
     },
-    //methode pour le carousel passage de slide
     nextSlide() {
       this.currentSlide = (this.currentSlide + 1) % this.carouselItems.length;
     },
@@ -171,8 +168,8 @@ Avec plus de 90 000 jeux intégrés à nos consoles rétro, des heures de jeu vo
 .container h1{
     font-family:"Press Start 2P", system-ui;
     color: #fff;
-    max-width: 90vw; /* Limiter la largeur du texte */
-    overflow: hidden; /* Éviter le débordement */
+    max-width: 90vw; 
+    overflow: hidden; 
 }
 .acceuil_section{
   height: fit-content;
@@ -337,7 +334,7 @@ h1 {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  transform: translateY(-50%); /* Centrer les boutons verticalement */
+  transform: translateY(-50%); 
 }
 
 .carousel-button {
@@ -346,7 +343,7 @@ h1 {
   padding: 10px;
   cursor: pointer;
   color: #fff;
-  font-size: 2rem; /* Ajuster la taille si nécessaire */
+  font-size: 2rem;
 }
 .carousel-button:hover {
   background-color: rgba(72, 72, 72, 0.5);
@@ -366,32 +363,29 @@ h1 {
 .console-cards .card {
   border-radius: 20px;
   overflow: hidden;
-  width: 480px; /* Largeur uniforme */
-  min-height: 400px; /* Hauteur minimum */
+  width: 480px; 
+  min-height: 400px; 
   text-align: center;
   color: white;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Espace entre contenu et image */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre pour effet de profondeur */
+  justify-content: space-between; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 .console-cards .card-1 {
 
-  background: linear-gradient(135deg, #172a74,#0d1b4d, #21a9e1); /* Bleu */
+  background: linear-gradient(135deg, #172a74,#0d1b4d, #21a9e1); 
 }
 
-/* Dégradé pour la deuxième carte */
 .console-cards .card-2 {
  
   background: linear-gradient(135deg, #ffdd00, #40bfdb)
 }
 
-/* Dégradé pour la troisième carte */
 .console-cards .card-3 {
- background: linear-gradient(135deg, #ff512f,#70047c, #dd2476); /* Rouge-rose */}
+ background: linear-gradient(135deg, #ff512f,#70047c, #dd2476);}
 
-/* Dégradé pour la quatrième carte */
 .console-cards .card-4 {
   background: linear-gradient(135deg, #f7971e, #ff0000, #ffd200);}
 
@@ -406,7 +400,7 @@ h1 {
 }
 
 .console-cards .card h1 {
-  font-size: 4rem; /* Taille du texte plus grande */
+  font-size: 4rem; 
   margin-bottom: 2rem;
 
 }
@@ -415,7 +409,7 @@ h1 {
   width: 100%;
   height: auto;
   display: block;
-  align-self: flex-end; /* Assure que l'image est en bas de la carte */
+  align-self: flex-end; 
   margin-top: auto;
 }
 
@@ -432,7 +426,7 @@ h1 {
   font-weight: 600;
   transition: all ease 0.3s;
   color: #fff;
-  margin-bottom: 2rem; /* Ajoute un espace sous le bouton */
+  margin-bottom: 2rem; 
 }
 
 .console-cards button:hover {

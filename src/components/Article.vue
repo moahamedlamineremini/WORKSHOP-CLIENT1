@@ -13,7 +13,7 @@ import defaultFrontBatterie from '../assets/images_produit/FRONT/GB-Front-Front_
 import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.png';
 
   export default {
-  name: 'Article', // Le nom doit être 'Article'
+  name: 'Article', 
   data() {
     return {
     title: 'Personnalisation de Console',
@@ -56,26 +56,21 @@ import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.p
     handleOptionChange(option, price, color) {
     const optionKey = this.view === 'side' ? `side${option.charAt(0).toUpperCase() + option.slice(1)}` : option;
 
-    // Récupère l'ancien chemin de l'image
     const currentImagePath = this.selectedOptions[optionKey];
 
-    // Vérifie si currentImagePath est défini
     if (!currentImagePath) {
         console.warn(`Current image path is undefined for option: ${optionKey}`);
         return;
     }
 
-    // Définit une liste des couleurs possibles
     const availableColors = option === 'boutons' ? this.colors_btn 
                         : option === 'pads' ? this.colors_pads 
                         : option === 'ecran' ? this.colors_ecran
                         : option === 'coqueArriere' ? this.colors_side
                         : this.colors;
 
-    // Cherche la couleur actuelle dans le chemin
     const currentColor = availableColors.find(c => currentImagePath.includes(`_${c}`));
 
-    // Si une couleur est trouvée, la remplace par la nouvelle couleur
     if (currentColor ) {
         const newPath = currentImagePath.replace(`_${currentColor}`, `_${color}`);
         this.selectedOptions[optionKey] = newPath;
@@ -113,12 +108,12 @@ updatePriceConsole() {
     if (this.selectedOptions.base === "Je nai pas de console à fournir") {
         if (!this.selectedOptions.baseAdded) {
             this.totalPrice += 40;
-            this.selectedOptions.baseAdded = true; // Marque que le prix de base a été ajouté
+            this.selectedOptions.baseAdded = true; 
         }
     } else if (this.selectedOptions.base === "J'ai déjà une console") {
         if (this.selectedOptions.baseAdded) {
             this.totalPrice -= 40;
-            this.selectedOptions.baseAdded = false; // Marque que le prix de base a été retiré
+            this.selectedOptions.baseAdded = false; 
         }
     }
 },
@@ -127,15 +122,15 @@ updatePriceAndImageBatterie() {
     if (this.selectedOptions.batterie === "batterie") {
         if (!this.selectedOptions.batterieAdded) {
             this.totalPrice += 40;
-            this.selectedOptions.batterieAdded = true; // Marque que le prix de la batterie a été ajouté
-            this.selectedOptions.frontBatterie = this.defaultFrontBatterie; // Réinitialise l'image
+            this.selectedOptions.batterieAdded = true; 
+            this.selectedOptions.frontBatterie = this.defaultFrontBatterie; 
             this.selectedOptions.sideBatterie = this.defaultSideBatterie;
         }
     } else if (this.selectedOptions.batterie === "") {
         if (this.selectedOptions.batterieAdded) {
             this.totalPrice -= 40;
-            this.selectedOptions.batterieAdded = false; // Marque que le prix de la batterie a été retiré
-            this.selectedOptions.frontBatterie = ''; // Réinitialise l'image
+            this.selectedOptions.batterieAdded = false;
+            this.selectedOptions.frontBatterie = ''; 
             this.selectedOptions.sideBatterie = '';
         }
     }
@@ -200,8 +195,6 @@ updatePriceAccessoire(accessoire) {
 <template>
 <div class="personnalisation-container">
     <h1 class="personnalisation-title" style="color: #544297">{{ title || 'Personnalisation de Console' }}</h1>
-
-    <!-- Bouton pour basculer entre front et side -->
     <button class="rotate-btn" @click="toggleView">
       {{ view === 'front' ? 'Voir le côté' : "Voir l'avant" }}
     </button>
@@ -320,7 +313,6 @@ updatePriceAccessoire(accessoire) {
       </div>
     </div>
 
-    <!-- Section du prix total et bouton panier -->
     <div class="price-container" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px; margin-top: 20px;">
       <h3>{{ totalPrice.toFixed(2) }}€</h3>
       <h1>Prix total</h1>
@@ -362,7 +354,7 @@ updatePriceAccessoire(accessoire) {
     font-family: 'Press Start 2P', cursive;
     text-align: center;
     font-size: 2rem;
-    color: #544297; /* Couleur du titre */
+    color: #544297;
     margin-top: 2rem;
 }
 
@@ -371,7 +363,7 @@ updatePriceAccessoire(accessoire) {
     margin: 30px auto;
     max-width: 300px;
     border-radius: 10px;
-    transform: perspective(500px) rotateX(5deg); /* Crée un léger effet 3D */
+    transform: perspective(500px) rotateX(5deg); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -392,7 +384,6 @@ updatePriceAccessoire(accessoire) {
     margin-bottom: 20px;
 }
 
-/* Fichier Personnalisation.css */
 
 .section-option {
     display: flex;
@@ -409,12 +400,12 @@ updatePriceAccessoire(accessoire) {
 }
 
 .section-option i {
-    font-size: 14px; /* Taille de l'icône */
+    font-size: 14px;
     transition: transform 0.3s ease;
 }
 
 .section-option i.fa-chevron-down {
-    transform: rotate(20deg); /* Fait pointer la flèche vers le bas */
+    transform: rotate(20deg);
 }
 
 
@@ -424,16 +415,16 @@ updatePriceAccessoire(accessoire) {
     padding-left: 20px;
 }
 
-/* Ajoute ce CSS pour afficher les labels l'un au-dessus de l'autre */
+
 .option-content label {
     display: block;
-    margin-bottom: 10px; /* Espace entre les options */
+    margin-bottom: 10px; 
 }
 .option-content label input[type="radio"] {
-    margin-right: 10px; /* Ajuste l'espace entre le bouton et le texte du label */
+    margin-right: 10px;
 }
 .option-content label input[type="checkbox"] {
-    margin-right: 10px; /* Ajuste l'espace entre le bouton et le texte du label */
+    margin-right: 10px; 
 }
 
 

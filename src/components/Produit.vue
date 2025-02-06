@@ -6,26 +6,18 @@ export default {
  
   name: 'Produit',
   components: {
-    Article, // Déclaration du composant
+    Article, 
   },
 
   mounted() {
-    // Sélectionner tous les éléments <li> une fois que le composant est monté
     const options = document.querySelectorAll('.options li');
     
-    // Sélectionner le paragraphe
     const paragraph = document.querySelector('.paragraph p');
     
-    // Ajouter un événement de clic à chaque élément <li>
     options.forEach(option => {
       option.addEventListener('click', function() {
-        // Récupérer la valeur de l'attribut data-content
         const content = this.getAttribute('data-content');
-        
-        // Modifier le texte du paragraphe
         paragraph.textContent = content;
-        
-        // Gérer la classe active pour le style
         options.forEach(opt => opt.classList.remove('active'));
         this.classList.add('active');
       });
@@ -108,7 +100,7 @@ export default {
     background-image: url("../assets/acceuil_2.png"); 
     background-size: cover;
     background-position: center;
-    min-height: 100vh; /* Ajuste la hauteur min selon le contenu */
+    min-height: 100vh;
    
 }
 .titre{
@@ -121,8 +113,8 @@ export default {
 
 .mode_emploi {
     padding: 20px;
-    border-radius: 10px; /* Coins arrondis pour le conteneur */
-    max-width: 1200px; /* Largeur maximale du conteneur */
+    border-radius: 10px; 
+    max-width: 1200px; 
     margin: 0 auto; 
     display: flex;
     flex-direction: column;
@@ -133,30 +125,30 @@ export default {
 
 .titre h1 {
    
-    color: #d4d4d4; /* Couleur du texte */
+    color: #d4d4d4;
     margin: 10px 0;
     font-family: "Press Start 2P", system-ui;
 
 }
 
 .titre h2 {
-    color: #333; /* Couleur du texte secondaire */
+    color: #333; 
     margin: 10px 0;
 }
 
 .etapes {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Deux colonnes pour les étapes */
-    gap: 20px; /* Espacement entre les étapes */
-    justify-items: center; /* Centrer les étapes */
-    max-width: 1000px; /* Largeur max pour les étapes */
-    margin: 0 auto; /* Centrer les étapes dans le conteneur */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px; 
+    justify-items: center; 
+    max-width: 1000px; 
+    margin: 0 auto; 
     grid-template-columns: repeat(2, 1fr);
 }
 
 .etape1, .etape2, .etape3 {
-    width: 100%; /* Même largeur pour toutes les étapes */
-    max-width: 400px; /* Limite la largeur à 400px */
+    width: 100%; 
+    max-width: 400px; 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -164,12 +156,12 @@ export default {
     text-align: center;
     padding: 20px;
     border-radius: 40px;
-    background: rgba(0, 0, 0, 0.7); /* Fond pour contraster avec l'arrière-plan */
+    background: rgba(0, 0, 0, 0.7); 
 }
 
-/* Étape 3 occupe deux colonnes en mode desktop */
+
 .etape3 {
-    grid-column: span 2; /* La 3ème étape occupe toute la largeur (2 colonnes) */
+    grid-column: span 2; 
 }
 
 .etape1 h2, .etape2 h2, .etape3 h2 {
@@ -192,8 +184,7 @@ export default {
 
 }
 
-/**PARTIE DESCRIPTION */
-/* Style du conteneur description */
+
 .description {
   max-width: 900px;
   margin: 0 auto;
@@ -201,7 +192,6 @@ export default {
   padding: 20px;
 }
 
-/* Style des options (onglets) */
 .options ul {
   list-style-type: none;
   padding: 0;
@@ -212,38 +202,33 @@ export default {
   overflow: hidden;
 }
 
-/* Style pour chaque onglet */
 .options li {
   cursor: pointer;
   padding: 15px;
   flex: 1;
   text-align: center;
   font-family: "Bayon", sans-serif;
-  background: rgba(0, 0, 0, 0.7); /* Fond pour contraster avec l'arrière-plan */
+  background: rgba(0, 0, 0, 0.7); 
   color: #f9f5f5;
   transition: all ease-in-out 0.3s ;
   border-bottom: 2px solid transparent;
 
 }
 
-/* État de survol */
 .options li:hover {
     transition: all ease-in-out 0.3s ;
 
     border-bottom: 2px solid #f90aad;
 }
 
-/* Onglet actif */
 .options li.active {
     background-color: #f90aad;
     border-bottom: 2px solid #000000;
 
 
-  /* Couleur d'accentuation pour l'onglet actif */
   color: #fff;
 }
 
-/* Style du paragraphe (contenu des onglets) */
 .paragraph p {
   font-size: 1em;
   color: #ffffff;
@@ -251,7 +236,6 @@ export default {
   
 }
 
-/* Responsive: ajustement pour les petits écrans */
 @media (max-width: 768px) {
   .options ul {
     flex-direction: column;
@@ -264,11 +248,11 @@ export default {
 
 @media (max-width: 768px) {
     .etapes {
-        grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
+        grid-template-columns: 1fr; 
     }
 
     .etape3 {
-        grid-column: span 1; /* Étape 3 revient à une seule colonne */
+        grid-column: span 1; 
     }
 }
 

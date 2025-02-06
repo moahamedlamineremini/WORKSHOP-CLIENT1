@@ -2,7 +2,6 @@
     <footer class="bg-dark text-white pt-4 mt-auto">
         <div class="container">
             <div class="row text-center text-md-start">
-                <!-- Follow Us Section -->
                 <div class="col-md-4 mb-4">
                     <img src="../assets/logo_metroid.webp" alt="Logo Metroid" class="img-fluid mb-3">
                     <h3>Suivez-nous</h3>
@@ -13,7 +12,6 @@
                         <li><a href="#"><font-awesome-icon :icon="['fab', 'instagram']" /></a></li>
                     </ul>
                 </div>
-                <!-- Products Links -->
                 <div class="col-md-4 mb-4">
                     <h3>Nos Produits</h3>
                     <ul class="list-unstyled">
@@ -25,7 +23,6 @@
                         <li><a href="/">GameBoy DMG</a></li>
                     </ul>
                 </div>
-                <!-- Legal Links -->
                 <div class="col-md-4 mb-4">
                     <h3>Informations pratiques</h3>
                     <ul class="list-unstyled">
