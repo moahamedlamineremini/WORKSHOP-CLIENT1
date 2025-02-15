@@ -12,15 +12,16 @@ import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_B
 import defaultFrontBatterie from '../assets/images_produit/FRONT/GB-Front-Front_USBC-02.png';
 import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.png';
 export default {
-  name: 'Article', // Le nom doit être 'Article'
+  name: 'Article', 
   data() {
     return {
-      title: 'Personnalisation de Console',
-      activeSection: null,
-      view: 'front',
-      selectedColor: null,
-      selectedImage: defaultFrontBatterie,
-            selectedOptions: {
+    title: 'Personnalisation de Console',
+    activeSection: null,
+    view: 'front',
+    defaultFrontBatterie: defaultFrontBatterie, // Ajoutez cette ligne
+    defaultSideBatterie: defaultSideBatterie,   // Ajoutez cette ligne
+    selectedColor: null,
+    selectedOptions: {
         base: null,
         coque: defaultFrontCoque,
         sideCoque: defaultSideCoque,
@@ -31,19 +32,16 @@ export default {
         sideBoutons: defaultSideButtons,
         pads: defaultFrontPads,
         sidePads: defaultSidePads,
-        coqueSpecial: null,
-        stickers: null,
-        batterie: defaultFrontBatterie,
-        sideBatterie: defaultSideBatterie,
+      
+        frontBatterie: "",
+        sideBatterie: "",
         accessoires1: null,
         accessoires2: null,
         accessoires3: null,
       },
       totalPrice: 129.0,
-      initialPrice: 129.0, 
       optionsList: ['BASE CONSOLE', 'COQUE', 'COQUE ARRIERE', 'ECRAN', 'BOUTONS', 'PADS',  'BATTERIE', 'ACCESSOIRES'],
       colors: ['Black', 'Blue', 'Green'],
-     
       colors_side: ['Black',  'Blue', 'Green'],
       colors_btn: ['Black', 'Red', 'Blue'],
       colors_pads: ['Black', 'Red', 'Blue', 'Green' , 'Yellow'],
@@ -60,26 +58,21 @@ export default {
     handleOptionChange(option, price, color) {
     const optionKey = this.view === 'side' ? `side${option.charAt(0).toUpperCase() + option.slice(1)}` : option;
 
-    // Récupère l'ancien chemin de l'image
     const currentImagePath = this.selectedOptions[optionKey];
 
-    // Vérifie si currentImagePath est défini
     if (!currentImagePath) {
         console.warn(`Current image path is undefined for option: ${optionKey}`);
         return;
     }
 
-    // Définit une liste des couleurs possibles
     const availableColors = option === 'boutons' ? this.colors_btn 
-                         : option === 'pads' ? this.colors_pads 
-                         : option === 'ecran' ? this.colors_ecran
-                         : option === 'coqueArriere' ? this.colors_side
-                         : this.colors;
+                        : option === 'pads' ? this.colors_pads 
+                        : option === 'ecran' ? this.colors_ecran
+                        : option === 'coqueArriere' ? this.colors_side
+                        : this.colors;
 
-    // Cherche la couleur actuelle dans le chemin
     const currentColor = availableColors.find(c => currentImagePath.includes(`_${c}`));
 
-    // Si une couleur est trouvée, la remplace par la nouvelle couleur
     if (currentColor ) {
         const newPath = currentImagePath.replace(`_${currentColor}`, `_${color}`);
         this.selectedOptions[optionKey] = newPath;
@@ -92,21 +85,23 @@ export default {
     }
 },
 updatePriceCoquearriere(color) {
-    // Si l'option "sans couleur" est sélectionnée
     if (color === null) {
         if (this.selectedColor !== null) {
-            this.totalPrice -= 11.9; // Retire 11.9€ si une couleur était déjà sélectionnée
+            this.totalPrice -= 11.9;
+            this.selectedOptions.baseAdded = false;
+
         }
-        this.selectedColor = null; // Remet la couleur sélectionnée à null
-        return; // Sort de la fonction
+        this.selectedColor = null; 
+        return; 
     }
 
-    // Si une nouvelle couleur est sélectionnée et que l'ancienne n'était pas null
     if (this.selectedColor === null) {
-        this.totalPrice += 11.9; // Ajoute 11.9€ pour la première couleur
+        this.totalPrice += 11.9; 
+        this.selectedOptions.baseAdded = true;
+
     }
 
-    this.selectedColor = color; // Met à jour la couleur sélectionnée
+    this.selectedColor = color; 
 },
 
 
@@ -115,30 +110,32 @@ updatePriceConsole() {
     if (this.selectedOptions.base === "Je nai pas de console à fournir") {
         if (!this.selectedOptions.baseAdded) {
             this.totalPrice += 40;
-            this.selectedOptions.baseAdded = true; // Marque que le prix de base a été ajouté
+            this.selectedOptions.baseAdded = true; 
         }
     } else if (this.selectedOptions.base === "J'ai déjà une console") {
         if (this.selectedOptions.baseAdded) {
             this.totalPrice -= 40;
-            this.selectedOptions.baseAdded = false; // Marque que le prix de base a été retiré
+            this.selectedOptions.baseAdded = false; 
         }
     }
 },
 
 updatePriceAndImageBatterie() {
-    if (this.selectedOptions.batterie === "batterie") {
-        if (!this.selectedOptions.batterieAdded) {
-            this.totalPrice += 40;
-            this.selectedOptions.batterieAdded = true; // Marque que le prix de la batterie a été ajouté
-            this.selectedImage = this.defaultFrontBatterie;
-        }
-    } else if (this.selectedOptions.batterie === "") {
-        if (this.selectedOptions.batterieAdded) {
-            this.totalPrice -= 40;
-            this.selectedOptions.batterieAdded = false; // Marque que le prix de la batterie a été retiré
-            this.selectedImage = ''; // Réinitialise l'image
-        }
+  if (this.selectedOptions.batterie === "batterie") {
+    if (!this.selectedOptions.batterieAdded) {
+      this.totalPrice += 40;
+      this.selectedOptions.batterieAdded = true;
+      this.selectedOptions.frontBatterie = this.defaultFrontBatterie; // Utilisez this.defaultFrontBatterie
+      this.selectedOptions.sideBatterie = this.defaultSideBatterie;   // Utilisez this.defaultSideBatterie
     }
+  } else if (this.selectedOptions.batterie === "") {
+    if (this.selectedOptions.batterieAdded) {
+      this.totalPrice -= 40;
+      this.selectedOptions.batterieAdded = false;
+      this.selectedOptions.frontBatterie = ''; // Réinitialisez à vide
+      this.selectedOptions.sideBatterie = '';  // Réinitialisez à vide
+    }
+  }
 },
 
 addclickeffet(){
@@ -195,147 +192,150 @@ updatePriceAccessoire(accessoire) {
   }
 };
 
-
 </script>
 
 <template>
-  <div class="personnalisation-container">
-      <h1 class="personnalisation-title" style="color: #544297">{{ title || 'Personnalisation de Console' }}</h1>
-  
-      <!-- Bouton pour basculer entre front et side -->
-      <button class="rotate-btn" @click="toggleView">
-        {{ view === 'front' ? 'Voir le côté' : "Voir l'avant" }}
-      </button>
-  
-      <div class="console-viewer">
-        <div class="image-wrapper">
-          <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" alt="coque" class="personnalisation-image" />
-          <img :src="view === 'front' ? selectedOptions.batterie : selectedOptions.sideBatterie" alt="batterie" class="personnalisation-image batterie" />
-      
-          <img v-if="view === 'side'" :src="selectedOptions.sideCoqueArriere" alt="coque arriere" class="personnalisation-image" />
-          <img :src="view === 'front' ? selectedOptions.boutons : selectedOptions.sideBoutons" alt="boutons" class="personnalisation-image boutons" />
-          <img :src="view === 'front' ? selectedOptions.ecran : selectedOptions.sideEcran" alt="écran" class="personnalisation-image ecran" />
-          <img :src="view === 'front' ? selectedOptions.pads : selectedOptions.sidePads" alt="pads" class="personnalisation-image pads" />
-        </div>
-      </div>
-  
-      <div class="form-container" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-        <!-- Liste des sections -->
-        <div v-for="option in optionsList" :key="option" class="form-group">
-          <div class="section-option" @click="setActiveSection(option)">
-            <span>{{ option.toUpperCase() }}</span>
-            <i :class="`fas ${activeSection === option ? 'fa-chevron-down' : 'fa-chevron-right'}`"></i>
-          </div>
-          <div v-if="activeSection === option" class="option-content">
-            <template v-if="option === 'COQUE'">
-              <div class="color-options">
-        <button v-for="color in colors" :key="color" class="color-circle" :class="color" @click="handleOptionChange('coque', 0, color)">
-        </button>
-      </div>
-            </template>
-            <template v-if="option === 'COQUE ARRIERE'">
-      <div class="color-options">
-          <button 
-              v-for="color in colors_side" 
-              :key="color" 
-              class="color-circle" 
-              :class="color" 
-              @click="handleOptionChange('CoqueArriere', 0, color); updatePriceCoquearriere(color)">
-          </button>
-          <button 
-        class="color-none" 
-        @click="updatePriceCoquearriere(null);addclickeffet()">
-        Sans
-      </button>
-      </div>
-  </template>
-  
-            <template v-if="option === 'BOUTONS'">
-              <div class="color-options">
-        <button v-for="color in colors_btn" :key="color" class="color-circle" :class="color" @click="handleOptionChange('boutons', 0, color)">
-        </button>
-      </div>
-            </template>
-            <template v-if="option === 'PADS'">
-              <div class="color-options">
-        <button v-for="color in colors_pads" :key="color" class="color-circle" :class="color" @click="handleOptionChange('pads', 0, color)">
-        </button>
-      </div>
-            </template>
-            <template v-if="option === 'ECRAN'">
-              <div class="color-options">
-        <button v-for="color in colors_ecran" :key="color" class="color-circle" :class="color" @click="handleOptionChange('ecran', 0, color)">
-        </button>
-      </div>
-            </template>
-            <template v-else>
-              <div>
-                <template v-if="option === 'BATTERIE'">
-                  <div>
-                    
-                    <label>
-                      <input type="radio" name="batterie" value="batterie" v-model="selectedOptions.batterie" @change="updatePriceAndImageBatterie() " />
-                      Batterie + Câble USB-C (+40€)
-                    </label>
-                    <label>
-    <input type="radio" name="batterie" value="" v-model="selectedOptions.batterie" @change="updatePriceAndImageBatterie()" />
-    Aucune batterie
-  </label>
-                 
-                  </div>
-                </template>
-                <template v-if="option === 'BASE CONSOLE'">
-                  <div>
-      <label>
-        <input type="radio" name="baseconsole" value="Je nai pas de console à fournir" v-model="selectedOptions.base" @change="updatePriceConsole()" />
-        Je n'ai pas de console à fournir (+40€)
-      </label>
-      <label>
-        <input type="radio" name="baseconsole" value="J'ai déjà une console" v-model="selectedOptions.base" @change="updatePriceConsole()"  />
-        J'ai déjà une console (0€) 
-      </label>
-    </div>
-  </template>
-  <template v-if="option === 'ACCESSOIRES'">
-      <div>
-          <label>
-              <input type="radio" name="accessoires" value="accessoire1" v-model="selectedOptions.accessoires1" @change="updatePriceAccessoire('accessoire1')" />
-              Verre trempé (+4.90€)
-          </label>
-          <label>
-              <input type="radio" name="accessoires" value="accessoire2" v-model="selectedOptions.accessoires2" @change="updatePriceAccessoire('accessoire2')" />
-              Coque Silicone (+6.90€)
-          </label>
-          <label>
-              <input type="radio" name="accessoires" value="accessoire3" v-model="selectedOptions.accessoires3" @change="updatePriceAccessoire('accessoire3')" />
-              Pas d'accessoire (+0€)
-          </label>
-      </div>
-  </template>
-  
-  
-               
-              </div>
-            </template>
-          </div>
-        </div>
-      </div>
-  
-      <!-- Section du prix total et bouton panier -->
-      <div class="price-container" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px; margin-top: 20px;">
-        <h3>{{ totalPrice.toFixed(2) }}€</h3>
-        <h1>Prix total</h1>
-        <p>Acompte (30%) : {{ (totalPrice * 0.3).toFixed(2) }}€</p>
-        <p>Livraisoon dans 35 - 40 jours</p>
-  
-        <button class="submit-btn">
-          <i class="fas fa-shopping-cart">Ajouter au panier</i>
-        </button>
-      </div>
-    </div>
-  </template>
-<style>
+<div class="personnalisation-container">
+    <h1 class="personnalisation-title" style="color: #544297">{{ title || 'Personnalisation de Console' }}</h1>
+    <button class="rotate-btn" @click="toggleView">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+  </svg>
+      {{ view === 'front' ? 'Voir le côté' : "Voir l'avant" }}
+    </button>
 
+    <div class="console-viewer">
+      <div class="image-wrapper">
+        <img :src="view === 'front' ? selectedOptions.coque : selectedOptions.sideCoque" alt="coque" class="personnalisation-image" />
+        <img 
+  v-if="view === 'front' ? selectedOptions.frontBatterie : selectedOptions.sideBatterie"
+  :src="view === 'front' ? selectedOptions.frontBatterie : selectedOptions.sideBatterie" 
+  alt="img batterie" 
+  class="personnalisation-image batterie" 
+/>    
+        <img v-if="view === 'side'" :src="selectedOptions.sideCoqueArriere" alt="coque arriere" class="personnalisation-image" />
+        <img :src="view === 'front' ? selectedOptions.boutons : selectedOptions.sideBoutons" alt="boutons" class="personnalisation-image boutons" />
+        <img :src="view === 'front' ? selectedOptions.ecran : selectedOptions.sideEcran" alt="écran" class="personnalisation-image ecran" />
+        <img :src="view === 'front' ? selectedOptions.pads : selectedOptions.sidePads" alt="pads" class="personnalisation-image pads" />
+      </div>
+    </div>
+
+    <div class="form-container" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+      <!-- Liste des sections -->
+      <div v-for="option in optionsList" :key="option" class="form-group">
+        <div class="section-option" @click="setActiveSection(option)">
+          <span>{{ option.toUpperCase() }}</span>
+          <i :class="`fas ${activeSection === option ? 'fa-chevron-down' : 'fa-chevron-right'}`"></i>
+        </div>
+        <div v-if="activeSection === option" class="option-content">
+          <template v-if="option === 'COQUE'">
+            <div class="color-options">
+      <button v-for="color in colors" :key="color" class="color-circle" :class="color" @click="handleOptionChange('coque', 0, color)">
+      </button>
+    </div>
+          </template>
+          <template v-if="option === 'COQUE ARRIERE'">
+    <div class="color-options">
+        <button 
+            v-for="color in colors_side" 
+            :key="color" 
+            class="color-circle" 
+            :class="color" 
+            @click="handleOptionChange('CoqueArriere', 0, color); updatePriceCoquearriere(color)">
+        </button>
+        <button 
+      class="color-none" 
+      @click="updatePriceCoquearriere(null);addclickeffet()">
+      Sans
+    </button>
+    </div>
+</template>
+
+          <template v-if="option === 'BOUTONS'">
+            <div class="color-options">
+      <button v-for="color in colors_btn" :key="color" class="color-circle" :class="color" @click="handleOptionChange('boutons', 0, color)">
+      </button>
+    </div>
+          </template>
+          <template v-if="option === 'PADS'">
+            <div class="color-options">
+      <button v-for="color in colors_pads" :key="color" class="color-circle" :class="color" @click="handleOptionChange('pads', 0, color)">
+      </button>
+    </div>
+          </template>
+          <template v-if="option === 'ECRAN'">
+            <div class="color-options">
+      <button v-for="color in colors_ecran" :key="color" class="color-circle" :class="color" @click="handleOptionChange('ecran', 0, color)">
+      </button>
+    </div>
+          </template>
+          <template v-else>
+            <div>
+              <template v-if="option === 'BATTERIE'">
+                <div>
+                  
+                  <label>
+                    <input type="radio" name="batterie" value="batterie" v-model="selectedOptions.batterie" @change="updatePriceAndImageBatterie() " />
+                    Batterie + Câble USB-C (+40€)
+                  </label>
+                  <label>
+  <input type="radio" name="batterie" value="" v-model="selectedOptions.batterie" @change="updatePriceAndImageBatterie()" />
+  Aucune batterie
+</label>
+               
+                </div>
+              </template>
+              <template v-if="option === 'BASE CONSOLE'">
+                <div>
+    <label>
+      <input type="radio" name="baseconsole" value="Je nai pas de console à fournir" v-model="selectedOptions.base" @change="updatePriceConsole()" />
+      Je n'ai pas de console à fournir (+40€)
+    </label>
+    <label>
+      <input type="radio" name="baseconsole" value="J'ai déjà une console" v-model="selectedOptions.base" @change="updatePriceConsole()"  />
+      J'ai déjà une console (0€) 
+    </label>
+  </div>
+</template>
+<template v-if="option === 'ACCESSOIRES'">
+    <div>
+        <label>
+            <input type="radio" name="accessoires" value="accessoire1" v-model="selectedOptions.accessoires1" @change="updatePriceAccessoire('accessoire1')" />
+            Verre trempé (+4.90€)
+        </label>
+        <label>
+            <input type="radio" name="accessoires" value="accessoire2" v-model="selectedOptions.accessoires2" @change="updatePriceAccessoire('accessoire2')" />
+            Coque Silicone (+6.90€)
+        </label>
+        <label>
+            <input type="radio" name="accessoires" value="accessoire3" v-model="selectedOptions.accessoires3" @change="updatePriceAccessoire('accessoire3')" />
+            Pas d'accessoire (+0€)
+        </label>
+    </div>
+</template>
+
+
+             
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-container" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); padding: 20px; margin-top: 20px;">
+      <h3>{{ totalPrice.toFixed(2) }}€</h3>
+      <h1>Prix total</h1>
+      <p>Acompte (30%) : {{ (totalPrice * 0.3).toFixed(2) }}€</p>
+      <p>Livraison dans 35 - 40 jours</p>
+
+      <button class="submit-btn">
+        <i class="fas fa-shopping-cart">Ajouter au panier</i>
+      </button>
+    </div>
+  </div>
+</template>
+
+<style>
 :root {
     --color-red: linear-gradient(135deg, #ff4b2b 0%, #ff0000 100%);
     --color-blue: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
@@ -389,12 +389,31 @@ updatePriceAccessoire(accessoire) {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .rotate-btn {
-  background: none;
-  border: none;
+background-color: #544297;
+border-radius: 20px;
+    border: none;
   cursor: pointer;
   font-size: 24px; /* Taille de l'icône */
-  color: #544297; /* Couleur par défaut */
+  color: #ffffff; /* Couleur par défaut */
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
+
+.rotate-btn:hover {
+  color: #3a2a7b;
+  background-color: #ffffff;
+ 
+
+}
+
+.rotate-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
 
 .rotate-btn:hover {
   color: #a83279; /* Couleur au survol */
@@ -410,6 +429,7 @@ updatePriceAccessoire(accessoire) {
 }
 .form-container {
     width: 80%;
+    align-self: center;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
@@ -444,7 +464,7 @@ updatePriceAccessoire(accessoire) {
 }
 
 .section-option i.fa-chevron-down {
-    transform: rotate(20deg); /* Fait pointer la flèche vers le bas */
+    transform: rotate(20deg); 
 }
 
 
@@ -454,22 +474,23 @@ updatePriceAccessoire(accessoire) {
     padding-left: 20px;
 }
 
-/* Ajoute ce CSS pour afficher les labels l'un au-dessus de l'autre */
+
 .option-content label {
     display: block;
-    margin-bottom: 10px; /* Espace entre les options */
+    margin-bottom: 10px; 
 }
 .option-content label input[type="radio"] {
-    margin-right: 10px; /* Ajuste l'espace entre le bouton et le texte du label */
+    margin-right: 10px;
 }
 .option-content label input[type="checkbox"] {
-    margin-right: 10px; /* Ajuste l'espace entre le bouton et le texte du label */
+    margin-right: 10px;
 }
 
 
 
 color-options {
     display: flex;
+   
     gap: 10px;
     margin-top: 10px;
 }
@@ -487,7 +508,7 @@ color-options {
 
 
 .color-circle:hover {
-    transform: scale(1.1); /* Zoom sur le bouton au survol */
+    transform: scale(1.1); 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -554,7 +575,6 @@ color-options {
 }
 
 .submit-btn {
-    background-color: #544297;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -567,7 +587,7 @@ color-options {
 }
 
 .submit-btn:hover {
-    background-color: #6a5acd;
+    background:linear-gradient(90deg, #8e7ff1, #3f2b87);
 }
 
 .submit-btn i {

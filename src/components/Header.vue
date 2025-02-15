@@ -2,7 +2,6 @@
   <div class="header -flex flex-column">
     <nav class="navbar navbar-expand-lg navbar-dark">
       
-      <router-link class="nav-link"  to="/" ><img src="../assets/logo_metroid.webp" class="logo navbar-brand"></router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -17,7 +16,6 @@
 
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav">
-          <!-- Dropdown for PERSONNALISATION -->
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -93,5 +91,29 @@
   font-family: 'Bebas Neue', sans-serif;
   padding: 10px 20px;
   margin-right: 5rem;
+  position: relative;
+  transition: color 0.3s ease;
 }
+
+.navbar-nav .nav-link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: white;
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.navbar-nav .nav-link:hover {
+  color: rgb(200, 200, 200); /* Changement de couleur léger */
+}
+
 </style>

@@ -42,9 +42,7 @@
       <h1>MODE D'EMPLOI</h1>
     </div>
     
-    <!-- Utilisation de la grille Bootstrap -->
     <div class="row etapes">
-      <!-- Étape 1 -->
       <div class="col-lg-6 col-md-6 col-sm-12 mb-4"  >
         <div class="etape bg-dark text-white p-4 rounded" >
           <h2 class="text-center">COULEUR DE L'ECRAN</h2>
@@ -86,26 +84,20 @@ export default {
     name: "GameboyBanner",
   name: 'Produit',
   components: {
-    Article, // Déclaration du composant
+    Article, 
   },
 
   mounted() {
-    // Sélectionner tous les éléments <li> une fois que le composant est monté
     const options = document.querySelectorAll('.options li');
     
-    // Sélectionner le paragraphe
     const paragraph = document.querySelector('.paragraph p');
     
-    // Ajouter un événement de clic à chaque élément <li>
     options.forEach(option => {
       option.addEventListener('click', function() {
-        // Récupérer la valeur de l'attribut data-content
         const content = this.getAttribute('data-content');
         
-        // Modifier le texte du paragraphe
         paragraph.textContent = content;
         
-        // Gérer la classe active pour le style
         options.forEach(opt => opt.classList.remove('active'));
         this.classList.add('active');
       });
@@ -119,8 +111,7 @@ export default {
     
    background-color: #1B015C;
     background-position: center;
-    min-height: 100vh; /* Ajuste la hauteur min selon le contenu */
-   
+    min-height: 100vh;
 }
 .titre{
     color: #ffffff;
@@ -151,14 +142,12 @@ export default {
 
 .img-fluid {
   max-width: 60%;
-  /* Limite la taille des images */
 }
 
 .bg-dark {
-  background: rgba(0, 0, 0, 0.7); /* Ajoute un fond semi-transparent */
+  background: rgba(0, 0, 0, 0.7); 
 }
 
-/* Ajustement des marges pour petits écrans */
 @media (max-width: 768px) {
   .img-fluid {
     max-width: 80%;
@@ -168,8 +157,7 @@ export default {
     padding: 10px;
   }
 }
-/**PARTIE DESCRIPTION */
-/* Style du conteneur description */
+
 .description {
   max-width: 900px;
   margin: 0 auto;
