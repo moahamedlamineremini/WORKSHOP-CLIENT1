@@ -11,6 +11,10 @@ import defaultFrontPads from '../assets/images_produit/FRONT/GB-Front-GB_FRONT_P
 import defaultSidePads from '../assets/images_produit/SIDE/GB-Side-GB_SIDE_PAD_Black0024.png';
 import defaultFrontBatterie from '../assets/images_produit/FRONT/GB-Front-Front_USBC-02.png';
 import defaultSideBatterie from '../assets/images_produit/SIDE/GB-Side-USBC-02.png';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faRotateRight, faRotateLeft, faGamepad, faDiceD6 } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faRotateRight, faRotateLeft, faGamepad, faDiceD6)
 export default {
   name: 'Article', 
   data() {
@@ -198,11 +202,17 @@ updatePriceAccessoire(accessoire) {
 <div class="personnalisation-container">
     <h1 class="personnalisation-title" style="color: #544297">{{ title || 'Personnalisation de Console' }}</h1>
     <button class="rotate-btn" @click="toggleView">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
-  </svg>
-      {{ view === 'front' ? 'Voir le côté' : "Voir l'avant" }}
-    </button>
+    <div class="rotate-icon-container">
+      <font-awesome-icon 
+        :icon="view === 'front' ? 'fa-solid fa-rotate-right' : 'fa-solid fa-rotate-left'" 
+        class="rotate-icon"
+      />
+      <!--<font-awesome-icon 
+        :icon="view === 'front' ? 'fa-solid fa-gamepad' : 'fa-solid fa-dice-d6'" 
+        class="view-icon"
+      />-->
+    </div>
+  </button>
 
     <div class="console-viewer">
       <div class="image-wrapper">
@@ -219,7 +229,7 @@ updatePriceAccessoire(accessoire) {
         <img :src="view === 'front' ? selectedOptions.pads : selectedOptions.sidePads" alt="pads" class="personnalisation-image pads" />
       </div>
     </div>
-
+    <div class="global-container">
     <div class="form-container" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
       <!-- Liste des sections -->
       <div v-for="option in optionsList" :key="option" class="form-group">
@@ -332,7 +342,7 @@ updatePriceAccessoire(accessoire) {
         <i class="fas fa-shopping-cart">Ajouter au panier</i>
       </button>
     </div>
-  </div>
+  </div></div>
 </template>
 
 <style>
@@ -351,10 +361,7 @@ updatePriceAccessoire(accessoire) {
 }
 /* Styles généraux - adaptés pour les grands écrans */
 .personnalisation-container {
-    border-radius: 2%;
-    max-width: 900px;
     margin: auto;
-    padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #F8F8F8;
 }
@@ -388,9 +395,10 @@ updatePriceAccessoire(accessoire) {
     transform: perspective(500px) rotateX(5deg); /* Crée un léger effet 3D */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.rotate-btn {
+.rotate-btn ,.submit-btn{
 background-color: #544297;
 border-radius: 20px;
+padding: 10px;
     border: none;
   cursor: pointer;
   font-size: 24px; /* Taille de l'icône */
@@ -401,7 +409,7 @@ border-radius: 20px;
   gap: 8px;
 }
 
-.rotate-btn:hover {
+.rotate-btn:hover, .submit-btn:hover {
   color: #3a2a7b;
   background-color: #ffffff;
  
@@ -574,7 +582,7 @@ color-options {
     
 }
 
-.submit-btn {
+/*.submit-btn {
     color: white;
     border: none;
     padding: 10px 20px;
@@ -585,14 +593,20 @@ color-options {
     background: linear-gradient(90deg, #3f2b87, #8e7ff1);
     transition: background-color 0.3s;
 }
-
 .submit-btn:hover {
     background:linear-gradient(90deg, #8e7ff1, #3f2b87);
 }
 
 .submit-btn i {
     margin-right: 10px;
+}    
+*/
+.global-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 /*test*/
 /* Conteneur de l'image de personnalisation */
 
@@ -730,6 +744,37 @@ color-options {
         width: 15px;
         height: 15px;
     }
+}
+
+.rotate-btn {
+  background-color: #544297;
+  border-radius: 20px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rotate-icon-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rotate-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.view-icon {
+  font-size: 1.2rem;
+}
+
+.rotate-btn:hover .rotate-icon {
+  transform: rotate(180deg);
 }
 
 </style>

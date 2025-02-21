@@ -14,16 +14,19 @@
 <div class="description">
 <div class="options">
 <ul>
-<li data-content="Voici la description du produit.">DESCRIPTION</li>
-<li data-content="Vous pouvez payer un acompte de 30% pour réserver ce produit.">ACOMPTE</li>
-<li data-content="Vous avez la possibilité de fournir votre propre console pour la modification.">FOURNIR UNE CONSOLE</li>
-<li data-content="Le délai d'expédition est estimé à 5-7 jours ouvrables.">DÉLAI ET EXPEDITION</li>
-<li data-content="Nous offrons une garantie de 2 ans sur ce produit.">GARANTIE</li>
+<li 
+  v-for="(text, index) in tabs" 
+  :key="index"
+  :class="{ active: activeTab === index }"
+  @click="setActiveTab(index)"
+>
+  {{ text.title }}
+</li>
 </ul>
 </div>
 
 <div class="paragraph">
-<p></p> 
+<p>{{ activeTabContent }}</p> 
 </div>
 </div>
 <div class="produit">
@@ -44,7 +47,7 @@
     
     <div class="row etapes">
       <div class="col-lg-6 col-md-6 col-sm-12 mb-4"  >
-        <div class="etape bg-dark text-white p-4 rounded" >
+        <div class="etape bg-dark text-white p-4 rounded-3" >
           <h2 class="text-center">COULEUR DE L'ECRAN</h2>
           <img src="../assets/gb1.png" class="img-fluid mx-auto d-block mb-3 " alt="Etape 1" >
           <p>Pour ouvrir le mode couleurs, il suffit de rester appuyé sur la molette contraste et ensuite haut ou bas pour faire défiler les modes de couleurs. Il existe actuellement 8 modes de couleurs sur la console.</p>
@@ -53,7 +56,7 @@
       
       <!-- Étape 2 -->
       <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
-        <div class="etape bg-dark text-white p-4 rounded">
+        <div class="etape bg-dark text-white p-4 rounded-3">
           <h2 class="text-center">RÉGLER LA LUMINOSITÉ DE L'ÉCRAN</h2>
           <img src="../assets/gb2.png" class="img-fluid mx-auto d-block mb-3 " style="width: 45.5%;" alt="Etape 2">
           <p>Il est possible d’ajuster la luminosité de la console en utilisant la molette de contraste vers le bas ou le haut pour ajuster la luminosité.</p>
@@ -62,7 +65,7 @@
       
       <!-- Étape 3 -->
       <div class="col-12">
-        <div class="etape bg-dark text-white p-4 rounded">
+        <div class="etape bg-dark text-white p-4 rounded-3">
           <h2 class="text-center">BATTERIE RECHARGEABLE USB-C</h2>
           <img src="../assets/gb3.png" class="img-fluid mx-auto d-block mb-3"  alt="Etape 3">
           <p>La batterie a une capacité de 2300mAh. Utilisez uniquement le câble de charge fourni avec la console. Ne dépassez pas 5W avec le dock de charge et évitez les docks de charge rapide. L’autonomie est de 8 à 10 heures, et il est possible de jouer tout en étant branché.</p>
@@ -81,29 +84,48 @@
 import Article from './Article.vue'
 
 export default {
-    name: "GameboyBanner",
   name: 'Produit',
   components: {
-    Article, 
+    Article
   },
-
-  mounted() {
-    const options = document.querySelectorAll('.options li');
-    
-    const paragraph = document.querySelector('.paragraph p');
-    
-    options.forEach(option => {
-      option.addEventListener('click', function() {
-        const content = this.getAttribute('data-content');
-        
-        paragraph.textContent = content;
-        
-        options.forEach(opt => opt.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
+  data() {
+    return {
+      activeTab: 0,
+      tabs: [
+        {
+          title: 'DESCRIPTION',
+          content: 'Voici la description du produit.'
+        },
+        {
+          title: 'ACOMPTE',
+          content: 'Vous pouvez payer un acompte de 30% pour réserver ce produit.'
+        },
+        {
+          title: 'FOURNIR UNE CONSOLE',
+          content: 'Vous avez la possibilité de fournir votre propre console pour la modification.'
+        },
+        {
+          title: 'DÉLAI ET EXPEDITION',
+          content: 'Le délai d\'expédition est estimé à 5-7 jours ouvrables.'
+        },
+        {
+          title: 'GARANTIE',
+          content: 'Nous offrons une garantie de 2 ans sur ce produit.'
+        }
+      ]
+    }
+  },
+  computed: {
+    activeTabContent() {
+      return this.tabs[this.activeTab]?.content || ''
+    }
+  },
+  methods: {
+    setActiveTab(index) {
+      this.activeTab = index
+    }
   }
-};
+}
   </script>
   
   <style scoped>
@@ -113,6 +135,7 @@ export default {
     background-position: center;
     min-height: 100vh;
 }
+
 .titre{
     color: #ffffff;
     border-radius: 40px;
@@ -159,9 +182,9 @@ export default {
 }
 
 .description {
+  background: #000000;
   max-width: 900px;
   margin: 0 auto;
-  border-radius: 15px;
   padding: 20px;
 }
 
@@ -333,5 +356,10 @@ export default {
   }
   
   }
+
+.paragraph {
+  min-height: 60px; /* Ajoutez une hauteur minimale pour éviter les sauts */
+  padding: 15px;
+  transition: all 0.3s ease;
+}
   </style>
-  

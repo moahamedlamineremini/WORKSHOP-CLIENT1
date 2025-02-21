@@ -3,6 +3,7 @@ import Footer from './components/Footer.vue'
 import Header from './components/Header.vue'
 import Acceuil from './components/Acceuil.vue'
 import { RouterView } from 'vue-router';
+import BackToTop from './components/BackToTop.vue'
 </script>
 
 <template>
@@ -12,7 +13,6 @@ import { RouterView } from 'vue-router';
   <link href="https://fonts.googleapis.com/css2?family=Bayon&display=swap" rel="stylesheet">
   
   <header>
-
       <Header />
   </header>
 
@@ -22,12 +22,11 @@ import { RouterView } from 'vue-router';
   <footer>
     <Footer/>
   </footer>
+  <BackToTop />
 </template>
 
 <style scoped>
 body{
   color: black;
   margin: 0;}
-
-
-</style>./components/Footer.vue
+</style>
