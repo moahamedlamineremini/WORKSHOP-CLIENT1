@@ -39,7 +39,7 @@ class AddProductWoo extends AbstractController
                     ]
                 ]
             ];
-            
+
 
             // Set up the cURL request
             $ch = curl_init();
@@ -89,9 +89,10 @@ curl_close($ch);
     {
         // Récupération des données envoyées par Vue.js
         $donnees = json_decode($request->getContent(), true);
-        
+
         // Création d'une nouvelle instance de Produit (entité Doctrine)
         $produit = new Produit();
+        $produit->setProduitId($donnees['produit_id']);
         $produit->setNom($donnees['nom']);
         $produit->setPrixBase($donnees['prix_base']); // Assure-toi que l'entité a un champ prixBase
         $produit->setDescription($donnees['description']); // Et un champ description
